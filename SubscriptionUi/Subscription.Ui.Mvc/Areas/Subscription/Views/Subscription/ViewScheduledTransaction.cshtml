@@ -1,0 +1,209 @@
+﻿@{
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    ViewBag.Title = "Islamic Relief Mauritius";
+
+    var id = ViewContext.RouteData.Values["idTransaction"] ?? -1;
+    var idTransactionDue = ViewContext.RouteData.Values["idTransactionDue"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+
+
+}
+
+@Scripts.Render("~/bundles/view-scheduled-transactions-js")
+@Scripts.Render("~/bundles/subscription-define-frequency-js")
+
+<main class="main" ng-controller="viewScheduledTransactionController" ng-init="indexController.setInfo(@id,@mode)" ng-cloak>
+    <div class="app__step">
+        <ul>
+            <li>
+                <p class="app__step-number">1.</p>
+                <p class="app__step-name"> <a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SUMMARY}" ng-click="indexController.selectMenu(indexController.menuEnum.SUMMARY)">Scheduled Transaction<br/>Details</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">2.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.PAYMENT_SCHEDULE_DETAILS}" ng-click="indexController.selectMenu(indexController.menuEnum.PAYMENT_SCHEDULE_DETAILS)">Payments</a></p>
+            </li>
+        </ul>
+    </div>
+    <div class="app__main js-app-main schedule-transaction">
+        <form name="scheduledTransactionForm" novalidate>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY">
+                @{Html.RenderAction("Summary", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.PAYMENT_SCHEDULE_DETAILS">
+                @{Html.RenderAction("PaymentScheduledTransaction", "Subscription", new { area = "Subscription" });}
+            </div>
+        </form>
+    </div>
+    <div class="app__nav">
+        <div class="app__nav-button-container">
+            <div class="app__button" ng-hide="indexController.selectedMenu!==indexController.menuEnum.SUMMARY" ng-click="indexController.selectMenu(indexController.menuEnum.PAYMENT_SCHEDULE_DETAILS)">
+                <a>PAYMENTS</a>
+            </div>
+            <div class="app__button" ng-hide="indexController.selectedMenu!=indexController.menuEnum.SUMMARY" ng-click="indexController.editTransaction(@id,@mode)">
+                <a>EDIT</a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<!--
+        <div ng-if="indexController.selectedMenu==indexController.menuEnum.DEFINE_PAYMENT">
+            @*{Html.RenderAction("Payment", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-if="indexController.selectedMenu==indexController.menuEnum.SCHEDULE_DETAILS">
+            @{Html.RenderAction("ViewScheduledTransaction", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-if="indexController.selectedMenu==indexController.menuEnum.PAYMENT_SCHEDULE_DETAILS">
+            @{Html.RenderAction("ViewScheduledTransaction", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-if="indexController.selectedMenu==indexController.menuEnum.FREQUENCY_SCHEDULE_DETAILS">
+            @{Html.RenderAction("ViewScheduledTransaction", "Subscription", new { area = "Subscription" });}
+        </div>
+
+        <div ng-hide="controller.selectedMenu!==3">
+            @*{Html.RenderAction("Payment", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-hide="controller.selectedMenu!==4">
+            @{Html.RenderAction("ViewScheduledTransaction", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-hide="controller.selectedMenu!==5">
+            @{Html.RenderAction("SelectCustomer", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-hide="controller.selectedMenu!==6">
+            @{Html.RenderAction("SelectCustomer", "Subscription", new { area = "Subscription" });}
+        </div>
+        <div ng-hide="controller.selectedMenu!==7">
+            @{Html.RenderAction("SelectCustomer", "Subscription", new { area = "Subscription" });}*@
+        </div>
+-->
+<!--div ng-controller="viewScheduledTransactionController">
+    <h2>View Scheduled Transactions</h2>
+    <div class="row form-item">
+        <div class="col-10">
+            <label>Filter by:</label>
+        </div>
+        <div class="col-40">
+            <div class="col-30">
+                <label for="customerName">Customer Name</label>
+            </div>
+            <div class="col-60">
+                <input type="text" id="customerName" name="customerName" placeholder="Haashim Joosub">
+            </div>
+        </div>
+        <div class="col-40">
+            <div class="col-30">
+                <label for="productName">Product Name</label>
+            </div>
+            <div class="col-60">
+                <input type="text" id="productName" name="productName" placeholder="Orphan">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 search-input">
+        <input type="text" placeholder="" name="search" class="form-control underline" ng-model="controller.paging.search" ng-enter="controller.loadScheduledTransactions()" ng-change="controller.loadScheduledTransactions()">
+    </div>
+    <table tr-ng-grid="" items="controller.scheduledTransactions"
+           class="hover table-bordered border-top-0 border-bottom-0 table-pos"
+           selected-items="controller.selectedCustomer" selection-mode="SingleRow"
+           enable-filtering="false" on-data-required-delay="500"
+           current-page="controller.paging.pageIndex"
+           page-items="controller.paging.pageSize"
+           total-items="controller.paging.totalCount"
+           order-by="controller.paging.sortColumn"
+           order-by-reverse="controller.paging.sortByDesc"
+           on-data-required="">
+        <!--controller.gridLoad(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)>
+        <thead>
+            <tr>
+                <th>
+                    <div class="tr-ng-title">
+                        Transaction ID
+                    </div>
+                </th>
+                <th>
+                    <div class="tr-ng-title">
+                        Customer
+                    </div>
+                </th>
+                <th>
+                    <div class="tr-ng-title">
+                        Amount
+                    </div>
+                </th>
+                <th>
+                    <div class="tr-ng-title">
+                        Product
+                    </div>
+                </th>
+                <th>
+                    <div class="tr-ng-title">
+                        Frequency
+                    </div>
+                </th>
+                <th>
+                    <div class="tr-ng-title">
+                        Actions
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="center">
+                    </div>
+                </td>
+                <td>
+                    <div class="center">
+                    </div>
+                </td>
+                <td>
+                    <div class="center">
+                    </div>
+                </td>
+                <td>
+                    <div class="center">
+                        <ul>
+                            <li ng-repeat="transactionDetail in gridItem.transactionDetails">
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="center">
+                    </div>
+                </td>
+                <td>
+                    <div class="center">
+                        <button style="font-size: 0.60em;" ng-click="controller.selectTransaction(gridItem,2)">Select</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <span>  in total</span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="table-pos-pagination dataTables_paginate paging_simple_numbers" id="example2_paginate">
+        <ul uib-pagination
+            total-items="controller.paging.pageCount"
+            ng-model="controller.paging.currentPageIndex"
+            max-size="controller.paging.pageSize"
+            num-pages="numPages"
+            class="pagination"
+            boundary-links="true"
+            rotate="false"
+            ng-change="controller.getCustomerList()"></ul>
+    </div>
+    <button class="right">
+        Add New
+    </button>
+</div-->

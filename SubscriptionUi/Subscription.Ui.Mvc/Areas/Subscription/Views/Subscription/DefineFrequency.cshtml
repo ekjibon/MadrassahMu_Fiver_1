@@ -1,0 +1,186 @@
+﻿@{
+    Layout = null;
+}
+
+@Scripts.Render("~/bundles/subscription-define-frequency-js")
+
+<div class="define-frequency" ng-controller="defineFrequencyController">
+    <div class="box__container customer-name">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="customerName">Customer Name</label>
+            </div>
+            <div class="box__col--45">
+                <input type="text" id="customerName" name="customerName" ng-model="controller.selectedCustomer.fullName" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="box__container frequency">
+        <div class="box__row">
+            <div class="box__col--20">
+                <h2>Define Frequency</h2>
+            </div>
+        </div>
+        <div class="box__row">
+
+            <div class="box__col--20">
+                <label for="frequency">Choose Frequency</label>
+            </div>
+            <div class="box__col--45">
+                <div class="dropdown__container">
+                    <select id="frequency" name="frequency" ng-model="controller.frequency.frequency" ng-options="frequency.id as frequency.description for frequency in controller.frequencies"></select>
+                </div>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--15" ng-if="controller.frequency.frequency == '3'">
+                <label for="recurEvery">Recur Every</label>
+            </div>
+            <div class="box__col--10" ng-if="controller.frequency.frequency == '3'">
+                <input type="text" id="recurEvery" name="recurEvery" placeholder="2..." ng-model="controller.frequency.recurEvery">
+            </div>
+
+        </div>
+
+        <div class="box__row" ng-if="controller.frequency.frequency == '3'">
+
+            <div class="box__col--20">
+                <label for="">Choose Days</label>
+            </div>
+            <div class="box__col--75 col__week-days custom-border-section">
+                <div class="box__row">
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="selectAllDays" name="selectAllDays" ng-checked="controller.selectAllWeeklyDays()">
+                        <label class="app__checkbox-label" for="selectAllDays">Select All</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="deSelectAllDays" name="selectAllDays">
+                        <label class="app__checkbox-label" for="deSelectAllDays">Deselect All</label>
+                    </span>
+
+                </div>
+                <div class="box__row week-days">
+                    <span ng-repeat="day in controller.days">
+                        <input type="checkbox" class="app__checkbox" name="{{day}}" id="{{day}}" value="true" ng-checked="controller.frequency.weeklyDaysSelectedFromServer[controller.days.indexOf(day)+1] == true" ng-click="controller.isDaySelectedForWeeklyFrequency(day)">
+                        <label class="app__checkbox-label" for="{{day}}">{{day}}</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="box__row form-item" ng-if="controller.frequency.frequency == '4'">
+            <div class="box__col--20">
+                <label for="">Choose Months</label>
+            </div>
+            <div class="box__col--80 col__months custom-border-section">
+                <div class="box__row">
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="selectAllMonths" name="selectAllMonths">
+                        <label class="app__checkbox-label" for="selectAllMonths">Select All</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="deSelectAllMonths" name="deSelectAllMonths">
+                        <label class="app__checkbox-label" for="deSelectAllMonths">Deselect All</label>
+                    </span>
+                </div>
+                <div class="box__row months">
+                    <span ng-repeat="month in controller.months">
+                        <input type="checkbox" class="app__checkbox" name="monthly{{month}}" id="monthly{{month}}" value="true" ng-checked="controller.frequency.selectedMonthsFromServer[controller.months.indexOf(month)+1] == true" ng-click="controller.isMonthSelectedForMonthlyFrequency(month)">
+                        <label class="app__checkbox-label" for="monthly{{month}}">{{month}}</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="box__row form-item" ng-if="controller.frequency.frequency == '4'">
+            <div c class="box__col--20">
+                <input type="radio" class="app__radio" id="specificDays" name="monthlyDaysOrEvery" value="true" ng-checked="controller.frequency.selectedDaysOrEveryForMonthlyFrequencyFromServer[0] == true" ng-click="controller.isDaysOrEverySelectedForMonthlyFrequency(0)">
+                <label class="app__radio-label" for="specificDays">On Specific Days</label>
+            </div>
+            <div class="box__col--80 col__dates custom-border-section">
+                <div class="box__row">
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="selectAllDates" name="selectAllDates">
+                        <label class="app__checkbox-label" for="selectAllDates">Select All</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="deSelectAllDates" name="deSelectAllDates">
+                        <label class="app__checkbox-label" for="deSelectAllDates">Deselect All</label>
+                    </span>
+                </div>
+                <div class="box__row months-dates">
+                    <span ng-repeat="date in controller.dates">
+                        <input type="checkbox" class="app__checkbox" name="monthly{{date}}" id="monthly{{date}}" value="true" ng-checked="controller.frequency.selectedMonthlyDatesFromServer[controller.dates.indexOf(date)+1] == true" ng-click="controller.isDateSelectedForMonthlyFrequency(date)">
+                        <label class="app__checkbox-label" for="monthly{{date}}">{{date}}</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="box__row form-item" ng-if="controller.frequency.frequency == '4'">
+            <div class="box__col--20">
+                <input type="radio" class="app__radio" id="every" name="monthlyDaysOrEvery" value="true" ng-checked="controller.frequency.selectedDaysOrEveryForMonthlyFrequencyFromServer[1] == true" ng-click="controller.isDaysOrEverySelectedForMonthlyFrequency(1)">
+                <label class="app__radio-label" for="every">Every</label>
+            </div>
+            <div class="box__col--35 col__frequency custom-border-section">
+                <div class="box__row">
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="selectAllEvery" name="selectAllEvery">
+                        <label class="app__checkbox-label" for="selectAllEvery">Select All</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="deSelectAllEvery" name="deSelectAllEvery">
+                        <label class="app__checkbox-label" for="deSelectAllEvery">Deselect All</label>
+                    </span>
+                </div>
+
+                <div class="box__row months-frequencies">
+                    <span ng-repeat="ev in controller.every">
+                        <input type="checkbox" class="app__checkbox" name="monthly{{ev}}" id="monthly{{ev}}" value="true" ng-checked="controller.frequency.selectedMonthlyEveryFromServer[controller.every.indexOf(ev)+1] == true" ng-click="controller.isEverySelectedForMonthlyFrequency(ev)">
+                        <label class="app__checkbox-label" for="monthly{{ev}}">{{ev}}</label>
+                    </span>
+                </div>
+            </div>
+
+            <span class="box__col--5"></span>
+
+            <div class="box__col--40 col__week-days custom-border-section">
+                <div class="box__row">
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="selectAllDays" name="selectAllDays">
+                        <label class="app__checkbox-label" for="selectAllDays">Select All</label>
+                    </span>
+                    <span>
+                        <input type="checkbox" class="app__checkbox" id="deSelectAllDays" name="selectAllDays">
+                        <label class="app__checkbox-label" for="deSelectAllDays">Deselect All</label>
+                    </span>
+                </div>
+
+                <div class="box__row week-days">
+                    <span ng-repeat="day in controller.days">
+                        <input type="checkbox" class="app__checkbox" name="monthly{{day}}" id="monthly{{day}}" value="true" ng-checked="controller.frequency.selectedDaysForMonthlyFrequency[controller.every.indexOf(day)+1] == true" ng-click="controller.isDaySelectedForMonthlyFrequency(day)">
+                        <label class="app__checkbox-label" for="monthly{{day}}">{{day}}</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box__container" ng-if="controller.frequency.frequency>0 && controller.frequency.frequency<5">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="startDate">Start Date/ Time</label>
+            </div>
+            <div class="box__col--45">
+                <input type="datetime-local" id="startDate" name="startDate" ng-model="controller.frequency.startDate">
+            </div>
+        </div>
+        <div class="box__row" ng-if="controller.frequency.frequency != '1'">
+            <div class="box__col--20">
+                <label for="endDate">End Date/ Time</label>
+            </div>
+            <div class="box__col--45">
+                <input type="datetime-local" id="endDate" name="endDate" ng-model="controller.frequency.endDate">
+            </div>
+        </div>
+    </div>
+</div>

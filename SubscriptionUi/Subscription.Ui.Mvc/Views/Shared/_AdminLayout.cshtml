@@ -1,0 +1,150 @@
+﻿@using Subscription.Service
+@using Subscription.Business
+@using Newtonsoft.Json
+<!DOCTYPE html>
+<html lang="zxx" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="msapplication-TileColor" content="#0f75ff">
+    <meta name="theme-color" content="#0f75ff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="@Url.Content("~/",true)favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/",true)favicon.ico" />
+
+    <!-- Title -->
+    <title>@ServiceFactory.Instance.GlobalVariableService.ApplicationName</title>
+    <script type="text/javascript">
+        var globalBaseServerUrl = '@(Url.Content("~/",true))';
+        var currentBaseServerUrl = '@(Url.Content("~/",true))';
+
+
+        @{
+            var controllerName = ViewContext.RouteData.Values["controller"] != null ? ViewContext.RouteData.Values["controller"].ToString() : "";
+            var actionName = ViewContext.RouteData.Values["action"] != null ? ViewContext.RouteData.Values["action"].ToString() : "";
+            var areaName = ViewContext.RouteData.Values["area"] != null ? ViewContext.RouteData.Values["area"].ToString() : "";
+            string isUserLoggedIn = JsonConvert.SerializeObject(ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null);
+            string loggedInUserDetail =  "''";
+            if (ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null) {
+                //loggedInUserDetail = JsonConvert.SerializeObject(ServiceFactory.Instance.UserService.MapUserToNonConfidentialInfo());
+            }
+        }
+        var controllerName =  '@controllerName';
+        var actionName =  '@actionName';
+        var areaName = '@areaName';
+        var isUserLoggedIn = @Html.Raw(isUserLoggedIn)
+        var loggedInUserDetail = @Html.Raw(loggedInUserDetail);
+        var sessionTimeout = "@Session.Timeout";
+        var signalRUrl = '@ServiceFactory.Instance.GlobalVariableService.SignalRUrl';
+    </script>
+    <!-- Bootstrap Css -->
+    @Styles.Render("~/bundles/bootstrap-css")
+
+    @Styles.Render("~/bundles/theme-css")
+    <!-- Font Family-->
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800" rel="stylesheet">
+
+    @Styles.Render("~/bundles/theme-back-end-back-css")
+
+    @Styles.Render("~/bundles/theme-back-end-back-css")
+    @Styles.Render("~/bundles/admin-sidebar-css")
+
+    @Styles.Render("~/bundles/bower-front-end-css")
+    @Styles.Render("~/bundles/thehub-css")
+
+</head>
+<body ng-controller="baseController" ng-cloak class="app sidebar-mini">
+    <toaster-container></toaster-container>
+
+    <!--Loader-->
+    <div id="global-loader"><img src="@Url.Content("~/",true)Content/Images/loader.svg" class="loader-img floating" alt=""></div>
+
+
+    <div class="page">
+        <div class="page-main">
+            <!--Topbar-->
+            @*{Html.RenderAction("Index", "AdminHeader", new { area = "" });}*@
+            <!--Topbar-->
+            <!--Sidebar-->
+            @*{Html.RenderAction("Index", "AdminSidebar", new { area = "" });}*@
+            <!--Sidebar-->
+            <div class="app-content my-3 my-md-5">
+                @RenderBody()
+
+                <div class="permanent-message">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Section-->
+        @*{Html.RenderAction("Index", "AdminFooter", new { area = "" });}*@
+        <!--Footer Section-->
+    </div>
+
+
+    <a href="#top" id="back-to-top"><i class="fa fa-rocket"></i></a>
+
+    @Scripts.Render("~/bundles/jquery-js")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/theme-js")
+    @Scripts.Render("~/bundles/signalr-js")
+
+    @Scripts.Render("~/bundles/mandatory-front-end-js")
+    @Scripts.Render("~/bundles/bower-front-end-js")
+    @Scripts.Render("~/bundles/authentication-js")
+    @Scripts.Render("~/bundles/angular-common-js")
+    @Scripts.Render("~/bundles/plugins-js")
+    @Scripts.Render("~/bundles/angular-base-js")
+    @Scripts.Render("~/bundles/angular-after-load-js")
+    @Scripts.Render("~/bundles/angular-directives")
+    @Scripts.Render("~/bundles/admin-item-js")
+    <script src="@ServiceFactory.Instance.GlobalVariableService.SignalRUrl/signalr/hubs" async></script>
+
+    @Scripts.Render("~/bundles/admin-sidebar-js")
+    @Scripts.Render("~/bundles/scrollbar-js")
+    @Scripts.Render("~/bundles/theme-back-end-back-js")
+
+    <script>
+        $(function () {
+            angular.element(function () {
+                angular.bootstrap(document, ['baseModule']);
+            });
+        })
+    </script>
+    @RenderSection("childController", required: false)
+
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v6.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your customer chat code -->
+    <div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="109473990647787"
+         theme_color="#628ff8">
+    </div>
+
+</body>
+</html>

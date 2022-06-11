@@ -1,0 +1,3 @@
+﻿class loadBankStatementStagingDetailBatchDto {
+    idBankStatementStaging: number;
+}

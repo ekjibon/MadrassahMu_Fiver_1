@@ -1,0 +1,142 @@
+﻿
+@using Subscription.Service
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+@Scripts.Render("~/bundles/transaction-sale-dto-return-type-js")
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        @@page {
+            margin: 0;
+            size: A5 landscape;
+        }
+
+        body {
+            margin: 0;
+            color: black;
+        }
+
+        .sheet {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+        /** Paper sizes **/
+        body.A5.landscape .sheet {
+            height: 200mm;
+            /*height: 167mm*/
+            width: 300mm;
+        }
+        /** Padding area **/
+        .sheet.padding-10mm {
+            padding: 10mm
+        }
+        /** For screen preview **/
+        @@media screen {
+            body {
+                background: #e0e0e0
+            }
+
+            .sheet {
+                background: white;
+                box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+                margin: 5mm;
+            }
+        }
+        /** Fix for Chrome issue #273306 **/
+        @@media print {
+            body.A4, body.A5.landscape {
+                width: 210mm
+            }
+        }
+
+        #sketch {
+            height: 380px;
+        }
+    </style>
+</head>
+
+<body class="A5 landscape">
+    <div ng-controller="transactionSaleSignatureController" ng-init="controller.onLoad()" ng-cloak class="container sheet padding-10mm">
+
+        <div class="box__row">
+            <div class="box__col--60">
+                <div class="pos-print-left-header-section">
+                    <div class="pos-print-header-text">
+                        <h2>ISLAMIC RELIEF</h2>
+                        <p>Pearl House, 2nd Floor, Room 201</p>
+                        <p>16 Sir Virgil Naz Street, Port Louis</p>
+                        <p>+230 260 23 49 | +230 260 23 50</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="controller.currentTransactionSaleSignature == controller.transactionSaleSignatureEnum.ID_NOT_SET">
+            <div class="box__row">
+                <div class="box__col--100">
+                    <div class="pos-print-left-header-section">
+                        <div class="pos-print-rectangle-text">
+                            <div class="pos-print-rectangle-header center">
+                                <h5>Input Workstation ID</h5>
+                            </div>
+                            <div class="pos-print-header-container">
+                                <input type="text" placeholder="Workstation Id" id="idWorkstation" name="idWorkstation" class="form-control underline" ng-model="controller.idWorkstation">
+                            </div>
+                            <div class="pos-print-header-container">
+                                <button class="pos-print-value" ng-click="controller.setIdWorkstation()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="controller.currentTransactionSaleSignature == controller.transactionSaleSignatureEnum.ID_SET">
+            <div class="box__row">
+                <div class="box__col--100 text-center">
+                    <button class="pos-print-value pos-print-sign" ng-click="controller.clickToSign()">Sign</button>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="controller.currentTransactionSaleSignature == controller.transactionSaleSignatureEnum.TRANSACTION_LOADED">
+            <h5>Input Signature</h5>
+            <div class="box__row">
+                <div class="box__col--65" id="sketch">
+                    <canvas id="paint"></canvas>
+                </div>
+
+                <div class="box__col-35">
+                    <span><strong>Date:</strong> {{controller.transactionArray.transactionDate | date:'dd/MM/yyyy'}}<br /></span>
+                    <span><strong>Name:</strong> {{controller.transactionArray.customer.fullName}}<br /></span>
+                    <span>
+                        <strong>Address:</strong> {{controller.transactionArray.customer.person.person_Address[0].address.addressLine1}} {{controller.transactionArray.customer.person.person_Address[0].address.addressLine2}} {{controller.transactionArray.customer.person.person_Address[0].address.addressLine3}} {{controller.transactionArray.customer.person.person_Address[0].address.addressLine4}}<br />
+                    </span>
+                    <span><strong>Receipt No:</strong> {{controller.transactionArray.receiptNo}}<br /></span>
+                    <span><strong>Transaction Details:</strong> <ul ng-repeat="transactionDetails in controller.transactionArray.transactionDetails"><li>> {{transactionDetails.product.description}}</li></ul><br /></span>
+                    <span><strong>Total Amount:</strong> {{controller.transactionArray.totalAmount}}<br /></span>
+                </div>
+            </div>
+            <div class="box__row">
+                <div class="box__col--100">
+                    <button class="pos-print-value margin-left-20" ng-click="controller.sendSignature()">Ok Signature</button>
+                    <button class="pos-print-value" id="reset" ng-click="controller.resetSignature()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

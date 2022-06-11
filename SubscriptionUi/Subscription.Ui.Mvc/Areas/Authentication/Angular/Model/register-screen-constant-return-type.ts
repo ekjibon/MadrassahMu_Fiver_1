@@ -1,0 +1,3 @@
+﻿class registerScreenConstantReturnType {
+    //socialNetworks: socialNetworkModel[];
+}

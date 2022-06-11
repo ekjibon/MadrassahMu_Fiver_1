@@ -1,0 +1,178 @@
+﻿@using TheHub.Service
+
+@{
+    var isSubSection = false;
+    ViewBag.Title = "Index";
+    if (ViewContext.RouteData.Values["isSubsection"] != null && ViewContext.RouteData.Values["isSubsection"].ToString() == "1")
+    {
+        isSubSection = true;
+        Layout = null;
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+
+}
+@if (!isSubSection)
+{
+    @section childController{
+        @Scripts.Render("~/bundles/transaction-order-essentials-js")
+        @Scripts.Render("~/bundles/administration-customer-admin-essentials-js")
+        @Scripts.Render("~/bundles/administration-customer-detail-js")
+        @Scripts.Render("~/bundles/administration-product-admin-essentials-js")
+        @Scripts.Render("~/bundles/administration-product-detail-js")
+
+        @Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+        @Scripts.Render("~/bundles/transaction-sale-detail-js")
+
+        @Scripts.Render("~/bundles/administration-transaction-account-admin-essentials-js")
+
+
+        @Scripts.Render("~/bundles/bank-reconciliation-essentials-js")
+        @Scripts.Render("~/bundles/bank-reconciliation-js")
+    }
+}
+
+<div ng-controller="reconcileBankOrderPopupController" ng-cloak class="side-app custom-card">
+
+    <form name="customerForm" novalidate>
+
+        <div class="row margin-top-15 modal-container">
+            <div class="col-md-12">
+
+                <div class="row margin-top-15" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.FILE_ANALYSED">
+                    <div class="card" ng-repeat="processedFile in controller.reconcileBankOrderViewModel">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="card-title-icon background-icon-2">
+                                    <i class="fa fa-tags"></i>
+                                </span>
+                                <span class="text">
+                                    {{processedFile.groupName}}
+                                </span>
+                            </h3>
+                            <ul class="panel-heading-tabs border-light" id="panelTag">
+                                <li class="panel-tools">
+                                    <ct-paneltool tool-collapse="tool-collapse"></ct-paneltool>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body p-6" uib-collapse="panelTag" ng-init="panelTag=false">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <div class="margin-bottom-10">
+                                        <table class="customs-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Value Date</th>
+                                                    <th>Branch Code</th>
+                                                    <th>Remarks</th>
+                                                    <th>Debit Amount</th>
+                                                    <th>Credit Amount</th>
+                                                    <th>Order Number</th>
+                                                    <th>Full Name</th>
+                                                    <th style="max-width:42px;">Product</th>
+                                                    <th>Amount</th>
+                                                    <th class="small-width-column"></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+
+                                    <div class="margin-bottom-5">
+                                        <table class="customs-table">
+                                            <thead style="visibility:collapse">
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th> </th>
+                                                    <th> </th>
+                                                    <th> </th>
+                                                    <th> </th>
+                                                    <th style="max-width:42px;"></th>
+                                                    <th></th>
+                                                    <th class="small-width-column"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="bankReconProcessFileViewModel in processedFile.bankStagings" id="#{{bankReconProcessFileViewModel.idBankStatementStagingDetail}}">
+                                                    <td>
+                                                        {{bankReconProcessFileViewModel.valueDate | date:'dd/MM/yyyy'}}
+                                                    </td>
+                                                    <td>{{bankReconProcessFileViewModel.branchCode}}</td>
+                                                    <td>
+                                                        {{bankReconProcessFileViewModel.remarks}}
+                                                    </td>
+                                                    <td> {{bankReconProcessFileViewModel.debitAmount  | number:2}}</td>
+                                                    <td>
+                                                        {{bankReconProcessFileViewModel.creditAmount  | number:2}}
+                                                    </td>
+                                                    <td>
+                                                        {{bankReconProcessFileViewModel.orderNumber }}
+                                                    </td>
+                                                    <td> <i class="fa fa-user"></i> {{bankReconProcessFileViewModel.orderConceptName}}</td>
+
+                                                    <td>
+                                                        <table class="customs-table-inner">
+                                                            <thead style="visibility: collapse;">
+                                                                <tr>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="orderDetail in bankReconProcessFileViewModel.orderDetails">
+                                                                    <td>
+                                                                        <i class="fa fa-book"></i> {{orderDetail.description}} (Rs {{orderDetail.rate | number}} * {{orderDetail.quantity}})
+                                                                    </td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+
+                                                    <td>
+                                                        <span>
+                                                            {{bankReconProcessFileViewModel.totalAmount  | number:0}}
+                                                        </span>
+                                                    </td>
+                                                    <td class="small-width-column" style="width:26px!important">
+                                                        <input type="checkbox" id="checkbox_{{bankReconProcessFileViewModel.idBankStatementStagingDetail}}" ng-model="bankReconProcessFileViewModel.isSelected" style="margin: 0 auto;display: block;">
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (isSubSection)
+                {
+                    <div class="modal-options">
+                        <div class="action-container">
+                            <a disable-animate class="btn btn-wide margin-right-0" id="save-btn"
+                               ng-click="controller.onOkToModal()">
+                                <i class="fa fa-save margin-right-5"></i>OK
+                            </a>
+                            <a disable-animate class="btn btn-wide margin-right-0" id="cancel-btn"
+                               ng-click="controller.onCancelToModal()">
+                                <i class="fa fa-save margin-right-5"></i>CANCEL
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (!isSubSection)
+            {
+
+            }
+        </div>
+    </form>
+
+</div>

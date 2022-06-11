@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{20A14D2E-B29F-4814-8E03-18FA67D85B85}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Subscription.Business</RootNamespace>
+    <AssemblyName>Subscription.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\References\Project\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\References\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\References\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\..\References\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\References\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Subscription.References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BankStatementReader\IBankStatementReader.cs" />
+    <Compile Include="BankStatementReader\IBankStatementReaderMetadata.cs" />
+    <Compile Include="BusinessObject\Business.Extension.cs" />
+    <Compile Include="BusinessObject\Business.Generated.cs" />
+    <Compile Include="BusinessObject\OnlineOrder.cs" />
+    <Compile Include="Common\BaseListReturnType.cs" />
+    <Compile Include="Common\CombinedPermission.cs" />
+    <Compile Include="Common\CustomVariables.cs" />
+    <Compile Include="Common\FileToZipInfo.cs" />
+    <Compile Include="Common\JWT.cs" />
+    <Compile Include="Common\SortingPagingInfo.cs" />
+    <Compile Include="Common\TokenManager.cs" />
+    <Compile Include="Common\Utils.cs" />
+    <Compile Include="Custom\DateGenerator.cs" />
+    <Compile Include="Custom\DefineFrequency.cs" />
+    <Compile Include="Custom\RequestWorkflowToken.cs" />
+    <Compile Include="Dto\AuthenticateUserDto.cs" />
+    <Compile Include="Dto\AuthenticateUserSocialDto.cs" />
+    <Compile Include="Dto\BankReconciliation\AnalyseBankReconciliationFileDto.cs" />
+    <Compile Include="Dto\BankReconciliation\AnalyseBankReconciliationFileForBatchDto.cs" />
+    <Compile Include="Dto\BankReconciliation\BankReconciliationListReturnType.cs" />
+    <Compile Include="Dto\BankReconciliation\BankReconciliationSortingPagingInfo.cs" />
+    <Compile Include="Dto\BankReconciliation\DeleteBankReconciliationStagingDetailDto.cs" />
+    <Compile Include="Dto\BankReconciliation\LoadBankReconciliationContentDto.cs" />
+    <Compile Include="Dto\BankReconciliation\LoadBankStatementStagingDetailBatchDto.cs" />
+    <Compile Include="Dto\BankReconciliation\ReconcileBankOrderDto.cs" />
+    <Compile Include="Dto\BankReconciliation\SaveBankReconciliationFileDto.cs" />
+    <Compile Include="Dto\BankReconciliation\SaveReconcileBankOrderDto.cs" />
+    <Compile Include="Dto\CompanyAdmin\SaveCompanyAdminDetailCompanyDto.cs" />
+    <Compile Include="Dto\Customer\CustomerSortingPagingInfo.cs" />
+    <Compile Include="Dto\Customer\GetAdministrationCustomerDto.cs" />
+    <Compile Include="Dto\Customer\GetCustomerByUniqueIdDto.cs" />
+    <Compile Include="Dto\Customer\SaveAdministrationCustomerDto.cs" />
+    <Compile Include="Dto\OnlineOrders\GetOnlineOrderDetailForBankReconDto.cs" />
+    <Compile Include="Dto\OnlineOrders\TransactionOrderSortingPagingInfo.cs" />
+    <Compile Include="Dto\Payment\SavePaymentForTransactionDueDto.cs" />
+    <Compile Include="Dto\Pdf\CombinePdfFileListDto.cs" />
+    <Compile Include="Dto\Person\GetAdministrationPersonDto.cs" />
+    <Compile Include="Dto\Product\GetAdministrationProductDto.cs" />
+    <Compile Include="Dto\Product\SaveAdministrationProductDto.cs" />
+    <Compile Include="Dto\ProfileAdmin\SaveProfileAdminPersonDto.cs" />
+    <Compile Include="Dto\Report\BaseReportDto.cs" />
+    <Compile Include="Dto\ResetPasswordExternalDto.cs" />
+    <Compile Include="Dto\Security\GetLinkedInUserDetailFromCodeDto.cs" />
+    <Compile Include="Dto\SignalR\GetListOfSignalRConnectionDto.cs" />
+    <Compile Include="Dto\Subscription\ProductListSortingPagingInfo.cs" />
+    <Compile Include="Dto\Subscription\CustomerListSortingPagingInfo.cs" />
+    <Compile Include="Dto\Subscription\GetScheduledTransactionDetailDto.cs" />
+    <Compile Include="Dto\Subscription\TransactionListSortingPagingInfo.cs" />
+    <Compile Include="Dto\Subscription\GetPaymentDueDetailDto.cs" />
+    <Compile Include="Dto\Subscription\SaveScheduledTransactionDto.cs" />
+    <Compile Include="Dto\Transaction\GetLastPaymentForCustomerDto.cs" />
+    <Compile Include="Dto\Transaction\GetEmailForTransactionDto.cs" />
+    <Compile Include="Dto\Transaction\GetSignatureForTemporaryTransactionOrderDto.cs" />
+    <Compile Include="Dto\Transaction\GetTemporaryTransactionOrderForWorkstationDto.cs" />
+    <Compile Include="Dto\Transaction\GetTransactionTotalForDateDto.cs" />
+    <Compile Include="Dto\Transaction\SaveEmailForTransactionDto.cs" />
+    <Compile Include="Dto\Transaction\SaveTemporaryTransactionDto.cs" />
+    <Compile Include="Dto\Transaction\SaveTransactionPaymentDto.cs" />
+    <Compile Include="Dto\Transaction\SendEmailToClientDto.cs" />
+    <Compile Include="Dto\UserRegistrationDto.cs" />
+    <Compile Include="Dto\Workflow\ExecuteExternalTransitionDto.cs" />
+    <Compile Include="Dto\ZipFile\ZipFileDto.cs" />
+    <Compile Include="Enums\AppSettingEnum.cs" />
+    <Compile Include="Enums\AreaEnum.cs" />
+    <Compile Include="Enums\AuthenticationTypeEnum.cs" />
+    <Compile Include="Enums\BankStatementStagingStateEnum.cs" />
+    <Compile Include="Enums\ConceptTypeEnum.cs" />
+    <Compile Include="Enums\ContactTypeEnum.cs" />
+    <Compile Include="Enums\CustomerTypeEnum.cs" />
+    <Compile Include="Enums\DatabaseReferences.cs" />
+    <Compile Include="Enums\DocumentTypeEnum.cs" />
+    <Compile Include="Enums\EntityStateEnum.cs" />
+    <Compile Include="Enums\FileTypeEnum.cs" />
+    <Compile Include="Enums\HostedDomainTypeEnum.cs" />
+    <Compile Include="Enums\MailRecipientTypeEnum.cs" />
+    <Compile Include="Enums\MailStatusEnum.cs" />
+    <Compile Include="Enums\ParameterEnum.cs" />
+    <Compile Include="Enums\PermissionEnum.cs" />
+    <Compile Include="Enums\ReportCodeEnum.cs" />
+    <Compile Include="Enums\RequestStatusEnum.cs" />
+    <Compile Include="Enums\RoleEnum.cs" />
+    <Compile Include="Enums\TemporaryTransactionOrderStateEnum.cs" />
+    <Compile Include="Enums\TransactionTypeEnum.cs" />
+    <Compile Include="Enums\WorkflowActionEnum.cs" />
+    <Compile Include="Enums\WorkflowEnum.cs" />
+    <Compile Include="Enums\WorkflowRoleEnum.cs" />
+    <Compile Include="Enums\WorkflowStateEnum.cs" />
+    <Compile Include="Enums\WorkflowTransitionActionReturnMeta.cs" />
+    <Compile Include="Enums\WorkflowTransitionEnum.cs" />
+    <Compile Include="ExtensionMethod\ExpressionExtension.cs" />
+    <Compile Include="Identity\IdentityModels.cs" />
+    <Compile Include="Identity\Role.cs" />
+    <Compile Include="Identity\User.cs" />
+    <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Identity\User_Claim.cs" />
+    <Compile Include="Identity\User_Login.cs" />
+    <Compile Include="Identity\User_Role.cs" />
+    <Compile Include="Mapper\Mapper.Generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\IReportGenerator.cs" />
+    <Compile Include="Report\IReportGeneratorMetadata.cs" />
+    <Compile Include="Report\ReportParameter.cs" />
+    <Compile Include="Report\ReportParameterMapper.cs" />
+    <Compile Include="Report\Transaction\TransactionReceiptDto.cs" />
+    <Compile Include="ReturnType\Authentication\AuthenticateUserReturnType.cs" />
+    <Compile Include="ReturnType\Authentication\AuthenticationReturnType.cs" />
+    <Compile Include="ReturnType\Authentication\ChangePasswordReturnType.cs" />
+    <Compile Include="ReturnType\Authentication\ForgotPasswordReturnType.cs" />
+    <Compile Include="ReturnType\Authentication\OAuthAuthenticateUserReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\AnalyseBankReconciliationFileForBatchReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\AnalyseBankReconciliationFileReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\BankReconciliationScreenConstantReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\BankStatementStagingDetailBatchData.cs" />
+    <Compile Include="ReturnType\BankReconciliation\Data\ReconcileBankOrderDataReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\LoadBankReconciliationContentReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\LoadBankStatementStagingDetailBatchReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\PrintTransactionReceiptsForBatchReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\ReconcileBankOrderReturnType.cs" />
+    <Compile Include="ReturnType\BankReconciliation\SaveBankReconciliationFileReturnType.cs" />
+    <Compile Include="ReturnType\BaseReturnType.cs" />
+    <Compile Include="ReturnType\BaseScreenConstantReturnType.cs" />
+    <Compile Include="ReturnType\Company\SaveCompanyAdminDetailCompanyReturnType.cs" />
+    <Compile Include="ReturnType\Concept\GetConceptDetailForIdConceptReturnType.cs" />
+    <Compile Include="ReturnType\Customer\AdministrationCustomerScreenConstantReturnType.cs" />
+    <Compile Include="ReturnType\Customer\GetCustomerByUniqueIdReturnType.cs" />
+    <Compile Include="ReturnType\Customer\LoadListByNameAndAddressReturnType.cs" />
+    <Compile Include="ReturnType\Customer\SaveAdministrationCustomerReturnType.cs" />
+    <Compile Include="ReturnType\Customer\GetAdministrationCustomerReturnType.cs" />
+    <Compile Include="ReturnType\Document\GetDefaultPictureReturnType.cs" />
+    <Compile Include="ReturnType\Document\GetStreamableFileReturnType.cs" />
+    <Compile Include="ReturnType\FileReturnType.cs" />
+    <Compile Include="ReturnType\FileTypeReturnType.cs" />
+    <Compile Include="ReturnType\HostedDomain\CheckIfHostedDomainAvailableReturnType.cs" />
+    <Compile Include="ReturnType\Pdf\CombinePdfFileListReturnType.cs" />
+    <Compile Include="ReturnType\Product\GetAdministrationProductReturnType.cs" />
+    <Compile Include="ReturnType\Product\SaveAdministrationProductReturnType.cs" />
+    <Compile Include="ReturnType\Profile\SaveProfileAdminPersonReturnType.cs" />
+    <Compile Include="ReturnType\Report\BaseReportReturnType.cs" />
+    <Compile Include="ReturnType\Security\GetLinkedInUserDetailFromCodeReturnType.cs" />
+    <Compile Include="ReturnType\Security\RegisterScreenConstant.cs" />
+    <Compile Include="ReturnType\SignalR\GetListOfSignalRConnectionReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\GetLastPaymentForCustomerReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\GetScheduledTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\GetCustomerListReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\GetPaymentDueDetailReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\LoadScheduledTransactionsReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\SaveTransactionPaymentReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\SavePaymentForTransactionDueReturnType.cs" />
+    <Compile Include="ReturnType\Subscription\SaveScheduledTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\Data\GetEmailForTransactionQueryTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\Data\GetTransactionSaleForPrintQueryReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\Data\TransactionTotalForDateAmountQueryReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\Data\TransactionTotalForDateUserQueryReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetEmailForTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetSignatureForTemporaryTransactionOrderReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetTemporaryTransactionOrderForWorkstationReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetTransactionSaleForPrintReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetTransactionSaleReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\GetTransactionTotalForDateReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\LoadNextTrasactionIdReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\SaveEmailForTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\SaveTemporaryTransactionReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\SaveTransactionSaleReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\TransactionSaleScreenConstantReturnType.cs" />
+    <Compile Include="ReturnType\Transaction\TransactionSyncReturnType.cs" />
+    <Compile Include="ReturnType\UploadDocumentReturnType.cs" />
+    <Compile Include="ReturnType\UploadFileInternalReturnType.cs" />
+    <Compile Include="ReturnType\User\GerUserDetailForSessionReturnType.cs" />
+    <Compile Include="ReturnType\ZipFile\ZipFileReturnType.cs" />
+    <Compile Include="Utils\ConfigAccess.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
+    <Compile Include="Utils\FileStreamOutputUtil.cs" />
+    <Compile Include="WorkflowTransitionAction\IWorkflowTransitionActionLookup.cs" />
+    <Compile Include="WorkflowTransitionAction\IWorkflowTransitionActionMetaData.cs" />
+    <Compile Include="WorkflowTransitionAction\WorkflowTransitionActionMetaDataReturn.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

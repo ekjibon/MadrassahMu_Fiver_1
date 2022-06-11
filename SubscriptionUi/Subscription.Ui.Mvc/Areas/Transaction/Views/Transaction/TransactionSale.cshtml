@@ -1,0 +1,132 @@
+﻿@{
+    var isSubSection = false;
+
+    if (ViewContext.RouteData.Values["isSubsection"] != null && ViewContext.RouteData.Values["isSubsection"].ToString() == "1")
+    {
+        isSubSection = true;
+        Layout = null;
+    }
+    else
+    {
+        Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    }
+
+    ViewBag.Title = "Transaction Sale - Islamic Relief";
+
+    var idTransaction = ViewContext.RouteData.Values["idTransaction"] ?? -1;
+    var idTransactionDue = ViewContext.RouteData.Values["idTransactionDue"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+    var isSubSectionString = isSubSection ? "true" : "false";
+}
+
+{idTransaction}/{idTransactionDue}/{mode}/{isSubsection}",
+
+@Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+@Scripts.Render("~/bundles/transaction-sale-dto-return-type-js")
+@Scripts.Render("~/bundles/subscription-schedule-transaction-js")
+@Scripts.Render("~/bundles/subscription-essentials-js")
+@Scripts.Render("~/bundles/subscription-select-customer-js")
+
+<main class="main" ng-controller="transactionSaleController" ng-init="indexController.setInfo(@idTransaction,@idTransactionDue,@mode,@isSubSectionString)" ng-cloak>
+
+    <div class="app__step">
+        <ul>
+            <!--li>
+                <p class="app__step-number">1.</p>
+                <p class="app__step-name"> <a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER}" ng-click="indexController.selectMenu(indexController.menuEnum.SELECT_CUSTOMER)">Select Customer</a></p>
+            </li-->
+            <li>
+                <p class="app__step-number">1.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SELECT_TRANSACTION}" ng-click="indexController.selectMenu(indexController.menuEnum.SELECT_TRANSACTION)">Select Transaction</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">2.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.DEFINE_PAYMENT}" ng-click="indexController.selectMenu(indexController.menuEnum.DEFINE_PAYMENT)">Payment</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">3.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SUMMARY}" ng-click="indexController.selectMenu(indexController.menuEnum.SUMMARY)">Summary</a></p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="app__main js-app-main transaction-sale">
+        <form name="transactionSaleForm" novalidate>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SELECT_TRANSACTION">
+                @{Html.RenderAction("SelectTransaction", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.DEFINE_PAYMENT">
+                @{Html.RenderAction("Payment", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY">
+                @{Html.RenderAction("Summary", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div class="box__container" ng-if="!indexController.baseController.isNullOrUndefined(indexController.signatureImage)">
+                <div class="box__row">
+                    <div class="box__col--20">
+                        <h2>Signature</h2>
+                    </div>
+                </div>
+                <div class="box__row">
+                    <div class="box__col--100" style="height:100px; border:dashed;">
+                        <img id="signaturePreview" style="width:100%;height:100%;object-fit:contain;" ng-src="{{indexController.signatureImage}}">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="app__nav" ng-cloak>
+        <div class="app__nav-button-container">
+            <!--div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER" ng-click="indexController.back()">
+                <a><span><img src="~/Content/images/Navigation/2x/ic_chevron_left_-2@2x.png" alt=""></span>BACK</a>
+            </div-->
+
+            @if (!isSubSection)
+            {
+                <div class="app_nav-spacer"></div>
+                <div class="app__button app__button--nav" ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY && indexController.currentMode==indexController.mode.ADD"
+                     ng-click="indexController.signReceipt()">
+                    <a>SIGN</a>
+                </div>
+                <div class="app_nav-spacer"></div>
+                <div class="app__button app__button--nav" ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY && indexController.currentMode==indexController.mode.VIEW"
+                     ng-click="indexController.sendEmail()">
+                    <a>SEND MAIL</a>
+                </div>
+                <div class="app__button app__button--nav" ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY  && indexController.currentMode==indexController.mode.ADD"
+                     ng-click="indexController.reloadSignature()">
+                    <a>RELOAD SIGNATURE</a>
+                </div>
+                <div class="app_nav-spacer"></div>
+                <!--div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.next()">
+                    <a>NEXT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+                </div-->
+                <div class="app__button app__button--nav" ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.submit()">
+                    <a>SUBMIT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+                </div>
+            }
+            else
+            {
+                <div class="app_nav-spacer"></div>
+                <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.next()">
+                    <a>NEXT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+                </div>
+
+                <div class="modal-options">
+                    <div class="action-container">
+                        <a disable-animate class="btn btn-wide margin-right-0" id="save-btn"
+                           ng-click="indexController.onOkToModal()">
+                            <i class="fa fa-save margin-right-5"></i>OK
+                        </a>
+                        <a disable-animate class="btn btn-wide margin-right-0" id="cancel-btn"
+                           ng-click="indexController.onCancelToModal()">
+                            <i class="fa fa-save margin-right-5"></i>CANCEL
+                        </a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</main>

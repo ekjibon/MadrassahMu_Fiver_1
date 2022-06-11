@@ -1,0 +1,3 @@
+﻿class getSignatureForTemporaryTransactionSignatureDto{
+    idTemporaryTransaction: number;
+}

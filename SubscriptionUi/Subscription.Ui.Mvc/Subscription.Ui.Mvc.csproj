@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CED2ECC-069F-48A6-AE92-08BEE692C176}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Subscription.Ui.Mvc</RootNamespace>
+    <AssemblyName>Subscription.Ui.Mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44320</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BundleTransformer.Core">
+      <HintPath>..\Subscription.References\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Yui">
+      <HintPath>..\Subscription.References\BundleTransformer.Yui.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreWeb.Business.Common">
+      <HintPath>..\Subscription.References\CoreWeb.Business.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreWeb.Data.Common">
+      <HintPath>..\Subscription.References\CoreWeb.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreWeb.Ui.Common">
+      <HintPath>..\Subscription.References\CoreWeb.Ui.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreWeb.Ui.Common.Implementation">
+      <HintPath>..\Subscription.References\CoreWeb.Ui.Common.Implementation.dll</HintPath>
+    </Reference>
+    <Reference Include="CoreWeb.Ui.Common.Mvc">
+      <HintPath>..\Subscription.References\CoreWeb.Ui.Common.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>..\..\References\Project\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Subscription.Business">
+      <HintPath>..\..\References\Project\Subscription.Business.dll</HintPath>
+    </Reference>
+    <Reference Include="Subscription.Data">
+      <HintPath>..\..\References\Project\Subscription.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Subscription.Service">
+      <HintPath>..\..\References\Project\Subscription.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdministrationCustomerController.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdministrationProductController.cs" />
+    <Compile Include="Areas\Administration\Extension\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Authentication\AuthenticationAreaRegistration.cs" />
+    <Compile Include="Areas\Authentication\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\Authentication\Extension\AuthenticationAreaRegistration.cs" />
+    <Compile Include="Areas\BankReconciliation\BankReconciliationAreaRegistration.cs" />
+    <Compile Include="Areas\BankReconciliation\Controllers\BankReconciliationController.cs" />
+    <Compile Include="Areas\BankReconciliation\Extension\BankReconciliationAreaRegistration.cs" />
+    <Compile Include="Areas\Subscription\Controllers\SubscriptionController.cs" />
+    <Compile Include="Areas\Subscription\Extension\SubscriptionAreaRegistration.cs" />
+    <Compile Include="Areas\Subscription\SubscriptionAreaRegistration.cs" />
+    <Compile Include="Areas\Transaction\Controllers\TransactionController.cs" />
+    <Compile Include="Areas\Transaction\Extension\TransactionAreaRegistration.cs" />
+    <Compile Include="Areas\Transaction\TransactionAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extension\CustomAuthorization.cs" />
+    <Compile Include="Extension\NonOrderingBundleOrderer.cs" />
+    <Compile Include="Extension\SessionInitializer.cs" />
+    <Compile Include="Extension\SharedSessionModule.cs" />
+    <Compile Include="Extension\UrlExtensions.cs" />
+    <Compile Include="Extension\WildcardRoute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Subscription\Views\web.config" />
+    <Content Include="Areas\Transaction\Views\Transaction\TransactionSalePrint.cshtml" />
+    <Content Include="Areas\Transaction\Views\Transaction\TransactionSaleSignature.cshtml" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\islamic-relief-logo.png" />
+    <Content Include="Content\Images\loader.svg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\custom\css\bootstrap.css" />
+    <Content Include="Scripts\custom\css\index.css" />
+    <Content Include="Scripts\custom\css\main.css" />
+    <Content Include="Scripts\custom\css\ng-table.css" />
+    <Content Include="Scripts\custom\css\select.min.css" />
+    <Content Include="Scripts\custom\css\select.min.min.css">
+      <DependentUpon>select.min.css</DependentUpon>
+    </Content>
+    <Content Include="Scripts\custom\css\subscription.css" />
+    <Content Include="Scripts\bower_components\ng-table\ng-table.js" />
+    <Content Include="Scripts\custom\js\sanitize.min.js" />
+    <Content Include="Scripts\custom\js\select.min.js" />
+    <Content Include="Scripts\custom\js\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="Areas\Authentication\Data\" />
+    <Folder Include="Areas\Authentication\Views\Shared\" />
+    <Folder Include="Areas\BankReconciliation\Data\" />
+    <Folder Include="Areas\BankReconciliation\Views\Shared\" />
+    <Folder Include="Areas\Subscription\Data\" />
+    <Folder Include="Areas\Transaction\Data\" />
+    <Folder Include="Areas\Transaction\Views\Shared\" />
+    <Folder Include="Views\Authentication\" />
+    <Folder Include="Views\Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Transaction\Views\web.config" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\AdministrationProduct\AdministrationProductListing.cshtml" />
+    <Content Include="Areas\Administration\Views\AdministrationProduct\AdministrationProduct.cshtml" />
+    <Content Include="Areas\Administration\Views\AdministrationProduct\AdministrationNewProduct.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\AddInstallmentPopup.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\CustomerSearchPopup.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\DefineFrequency.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\Payment.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\PaymentScheduledTransaction.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\ProductSearchPopup.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\ScheduleDetail.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\ScheduleTransactionSale.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\SelectCustomer.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\SelectTransaction.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\Summary.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\ViewAllScheduledTransactions.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\ViewScheduledTransaction.cshtml" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administration\Views\AdministrationCustomer\AdministrationCustomerListing.cshtml" />
+    <Content Include="Areas\Administration\Views\AdministrationCustomer\AdministrationCustomer.cshtml" />
+    <Content Include="Areas\Administration\Views\AdministrationCustomer\AdministrationNewCustomer.cshtml" />
+    <Content Include="Areas\Authentication\Views\web.config" />
+    <Content Include="Areas\Authentication\Views\Authentication\Authentication.cshtml" />
+    <Content Include="Areas\Transaction\Views\Transaction\TransactionSale.cshtml" />
+    <Content Include="Areas\Transaction\Views\Transaction\TransactionSaleListing.cshtml" />
+    <Content Include="Areas\Subscription\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Subscription\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Subscription\Views\Subscription\UITEST.cshtml" />
+    <Content Include="Areas\BankReconciliation\Views\BankReconciliation\BankReconciliationListing.cshtml" />
+    <Content Include="Areas\BankReconciliation\Views\BankReconciliation\Index.cshtml" />
+    <Content Include="Areas\BankReconciliation\Views\BankReconciliation\ReconcileBankOrderPopup.cshtml" />
+    <Content Include="Areas\BankReconciliation\Views\web.config" />
+    <Content Include="Areas\Transaction\Views\Transaction\CreditTransactionSaleListing.cshtml" />
+    <None Include="bundleconfig.json" />
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\DefaultLayout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Black.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Black.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-BlackItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-BlackItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Bold.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Bold.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-BoldItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-BoldItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraBold.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraBold.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraBoldItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraBoldItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraLight.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraLight.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraLightItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ExtraLightItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Italic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Italic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Light.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Light.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-LightItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-LightItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Medium.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Medium.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-MediumItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-MediumItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Regular.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Regular.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-SemiBold.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-SemiBold.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-SemiBoldItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-SemiBoldItalic.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Thin.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-Thin.woff2" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ThinItalic.woff" />
+    <Content Include="Scripts\custom\css\fonts\Poppins\Poppins-ThinItalic.woff2" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Angular\Directive\angular-template-include.js" />
+    <Content Include="Angular\Directive\compare-to.js" />
+    <Content Include="Angular\Directive\dismiss.js" />
+    <Content Include="Angular\Directive\empty-links.js" />
+    <Content Include="Angular\Directive\file-upload.js" />
+    <Content Include="Angular\Directive\init-from-form.js" />
+    <Content Include="Angular\Directive\panel-tools.js" />
+    <Content Include="Angular\Directive\perfect-scrollbar.js" />
+    <Content Include="Scripts\bower_components\accountingjs\accounting.min.js" />
+    <Content Include="Scripts\bower_components\angucomplete-alt\angucomplete-alt.min.js" />
+    <Content Include="Scripts\bower_components\angular-animate\angular-animate.min.js" />
+    <Content Include="Scripts\bower_components\angular-bootstrap\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\bower_components\angular-breadcrumb\dist\angular-breadcrumb.min.js" />
+    <Content Include="Scripts\bower_components\angular-cookies\angular-cookies.min.js" />
+    <Content Include="Scripts\bower_components\angular-file-upload\angular-file-upload.min.js" />
+    <Content Include="Scripts\bower_components\angular-filter\angular-filter.min.js" />
+    <Content Include="Scripts\bower_components\angular-loading-bar\build\loading-bar.min.css" />
+    <Content Include="Scripts\bower_components\angular-loading-bar\build\loading-bar.min.js" />
+    <Content Include="Scripts\bower_components\angular-moment\angular-moment.min.js" />
+    <Content Include="Scripts\bower_components\angular-notification-icons\dist\angular-notification-icons.min.css" />
+    <Content Include="Scripts\bower_components\angular-notification-icons\dist\angular-notification-icons.min.js" />
+    <Content Include="Scripts\bower_components\angular-perfect-scrollbar\src\angular-perfect-scrollbar.min.js" />
+    <Content Include="Scripts\bower_components\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="Scripts\bower_components\angular-scroll\angular-scroll.min.js" />
+    <Content Include="Scripts\bower_components\angular-simple-logger\angular-simple-logger.js" />
+    <Content Include="Scripts\bower_components\angular-sweetalert-promised\SweetAlert.min.js" />
+    <Content Include="Scripts\bower_components\angular-touch\angular-touch.min.js" />
+    <Content Include="Scripts\bower_components\angular-truncate\src\truncate.js" />
+    <Content Include="Scripts\bower_components\angular-ui-leaflet\dist\ui-leaflet-layers.min.js" />
+    <Content Include="Scripts\bower_components\angular-ui-leaflet\dist\ui-leaflet.js" />
+    <Content Include="Scripts\bower_components\angular-ui-leaflet\src\services\google.js" />
+    <Content Include="Scripts\bower_components\angular-ui-select\dist\select.min.css" />
+    <Content Include="Scripts\bower_components\angular-ui-select\dist\select.min.js" />
+    <Content Include="Scripts\bower_components\angular-ui-switch\angular-ui-switch.min.css" />
+    <Content Include="Scripts\bower_components\angular-ui-switch\angular-ui-switch.min.js" />
+    <Content Include="Scripts\bower_components\angular-xeditable\dist\css\xeditable.css" />
+    <Content Include="Scripts\bower_components\angular-xeditable\dist\js\xeditable.min.js" />
+    <Content Include="Scripts\bower_components\AngularJS-Toaster\toaster.css" />
+    <Content Include="Scripts\bower_components\AngularJS-Toaster\toaster.js" />
+    <Content Include="Scripts\bower_components\animate.css\animate.min.css" />
+    <Content Include="Scripts\bower_components\bootstrap-4.1.3\css\bootstrap.min.css" />
+    <Content Include="Scripts\bower_components\bootstrap-4.1.3\js\bootstrap.min.js" />
+    <Content Include="Scripts\bower_components\bootstrap-4.1.3\popper.min.js" />
+    <Content Include="Scripts\bower_components\c3-0.4.13\c3.min.css" />
+    <Content Include="Scripts\bower_components\c3-0.4.13\c3.min.js" />
+    <Content Include="Scripts\bower_components\c3-angular-directive-1.3.0\c3-angular.min.js" />
+    <Content Include="Scripts\bower_components\chartjs\Chart.min.js" />
+    <Content Include="Scripts\bower_components\components-modernizr\modernizr.js" />
+    <Content Include="Scripts\bower_components\d3\d3.min.js" />
+    <Content Include="Scripts\bower_components\fastclick\lib\fastclick.js" />
+    <Content Include="Scripts\bower_components\fileuploads\css\dropify.min.css" />
+    <Content Include="Scripts\bower_components\fileuploads\fonts\dropify.svg" />
+    <Content Include="Scripts\bower_components\fileuploads\js\dropify.min.js" />
+    <Content Include="Scripts\bower_components\jquery-easing\jquery.easing.1.3.min.js" />
+    <Content Include="Scripts\bower_components\jquery-globalize\jquery.globalize.min.js" />
+    <Content Include="Scripts\bower_components\jquery.sparkline.build\dist\jquery.sparkline.min.js" />
+    <Content Include="Scripts\bower_components\leaflet\images\layers-2x.png" />
+    <Content Include="Scripts\bower_components\leaflet\images\layers.png" />
+    <Content Include="Scripts\bower_components\leaflet\images\map-marker-small-md.png" />
+    <Content Include="Scripts\bower_components\leaflet\images\marker-icon-2x.png" />
+    <Content Include="Scripts\bower_components\leaflet\images\marker-icon.png" />
+    <Content Include="Scripts\bower_components\leaflet\images\marker-shadow.png" />
+    <Content Include="Scripts\bower_components\leaflet\leaflet.css" />
+    <Content Include="Scripts\bower_components\leaflet\leaflet.js" />
+    <Content Include="Scripts\bower_components\linq\linq.min.js" />
+    <Content Include="Scripts\bower_components\moment\min\moment.min.js" />
+    <Content Include="Scripts\bower_components\ng-quill\ng-quill.min.js" />
+    <Content Include="Scripts\bower_components\ngstorage\ngStorage.min.js" />
+    <Content Include="Scripts\bower_components\perfect-scrollbar\css\perfect-scrollbar.min.css" />
+    <Content Include="Scripts\bower_components\perfect-scrollbar\js\min\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Scripts\bower_components\quill\quill.bubble.css" />
+    <Content Include="Scripts\bower_components\quill\quill.min.js" />
+    <Content Include="Scripts\bower_components\scroll-bar\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\bower_components\scroll-bar\jquery.mCustomScrollbar.css" />
+    <Content Include="Scripts\bower_components\selectize.js\css\selectize.default.css" />
+    <Content Include="Scripts\bower_components\selectize.js\js\selectize.min.js" />
+    <Content Include="Scripts\bower_components\sweetalert\lib\sweet-alert.min.css" />
+    <Content Include="Scripts\bower_components\sweetalert\lib\sweet-alert.min.js" />
+    <Content Include="Scripts\bower_components\themify-icons\fonts\themify.svg" />
+    <Content Include="Scripts\bower_components\themify-icons\ie7\ie7.css" />
+    <Content Include="Scripts\bower_components\themify-icons\ie7\ie7.js" />
+    <Content Include="Scripts\bower_components\themify-icons\themify-icons.css" />
+    <Content Include="Scripts\bower_components\toggle-sidebar\sidemenu-1.css" />
+    <Content Include="Scripts\bower_components\toggle-sidebar\sidemenu.css" />
+    <Content Include="Scripts\bower_components\toggle-sidebar\sidemenu.js" />
+    <Content Include="Scripts\bower_components\toggle-sidebar\sidemenu2.css" />
+    <Content Include="Scripts\bower_components\tr-ngGrid\trNgGrid.css" />
+    <Content Include="Scripts\bower_components\tr-ngGrid\trNgGrid.js" />
+    <Content Include="Scripts\bower_components\v-accordion\dist\v-accordion.min.css" />
+    <Content Include="Scripts\bower_components\v-accordion\dist\v-accordion.min.js" />
+    <Content Include="Scripts\signalR\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Scripts\custom\css\utils.css" />
+    <Content Include="Scripts\custom\js\angular.min.js" />
+    <Content Include="Scripts\custom\js\custom.js" />
+    <Content Include="Scripts\custom\js\jquery.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Angular\Authentication\authentication-factory.ts" />
+    <TypeScriptCompile Include="Angular\Authentication\facebook-authentication.ts" />
+    <TypeScriptCompile Include="Angular\Authentication\google-authentication.ts" />
+    <TypeScriptCompile Include="Angular\Authentication\identity-authentication.ts" />
+    <TypeScriptCompile Include="Angular\Authentication\linkedin-authentication.ts" />
+    <TypeScriptCompile Include="Angular\Base\base-controller.ts" />
+    <TypeScriptCompile Include="Angular\Base\base-module.ts" />
+    <TypeScriptCompile Include="Angular\Base\base-web-service.ts" />
+    <TypeScriptCompile Include="Angular\Common\common-utility.ts" />
+    <TypeScriptCompile Include="Angular\Common\date-conversion.ts" />
+    <TypeScriptCompile Include="Angular\Common\download-response-service.ts" />
+    <TypeScriptCompile Include="Angular\Common\file-manager.ts" />
+    <TypeScriptCompile Include="Angular\Common\generic-web-connection-service.ts" />
+    <TypeScriptCompile Include="Angular\Common\global-variables-factory.ts" />
+    <TypeScriptCompile Include="Angular\Common\loading-controller.ts" />
+    <TypeScriptCompile Include="Angular\Common\permission-manager.ts" />
+    <TypeScriptCompile Include="Angular\Common\screen-mode-manager.ts" />
+    <TypeScriptCompile Include="Angular\Common\screen-mode.ts" />
+    <TypeScriptCompile Include="Angular\Common\session-variables.ts" />
+    <TypeScriptCompile Include="Angular\Common\simple-entity-controller.ts" />
+    <TypeScriptCompile Include="Angular\Common\simple-entity-popup-controller.ts" />
+    <TypeScriptCompile Include="Angular\Common\validation-utility.ts" />
+    <TypeScriptCompile Include="Angular\Common\variables.ts" />
+    <Content Include="Angular\Directive\image-defer.js" />
+    <TypeScriptCompile Include="Angular\Enum\angular-project-enum.ts" />
+    <TypeScriptCompile Include="Angular\Enum\Angular.Enum.Common.ts" />
+    <TypeScriptCompile Include="Angular\Filters\htmlToPlaintext.ts" />
+    <TypeScriptCompile Include="Angular\Formatter\address-formatter.ts" />
+    <TypeScriptCompile Include="Angular\Formatter\gender-formatter.ts" />
+    <TypeScriptCompile Include="Angular\Formatter\person-formatter.ts" />
+    <TypeScriptCompile Include="Angular\Model\angular-project-model.ts" />
+    <TypeScriptCompile Include="Angular\Model\Angular.Model.Common.ts" />
+    <TypeScriptCompile Include="Angular\Model\Angular.Model.ts" />
+    <TypeScriptCompile Include="Angular\Model\base-screen-constant-return-type.ts" />
+    <TypeScriptCompile Include="Angular\Model\combined-permission-model.ts" />
+    <TypeScriptCompile Include="Angular\ReturnType\Angular.ReturnType.ts" />
+    <TypeScriptCompile Include="Angular\ReturnType\base-return-type.ts" />
+    <TypeScriptCompile Include="Angular\Service\Angular.Service.Generated.ts" />
+    <TypeScriptCompile Include="Angular\Service\Angular.ServiceUrlConfig.ts" />
+    <TypeScriptCompile Include="Angular\Service\general-web-service.ts" />
+    <TypeScriptCompile Include="Angular\Shared\admin-footer.ts" />
+    <TypeScriptCompile Include="Angular\Shared\admin-header.ts" />
+    <TypeScriptCompile Include="Angular\Shared\admin-item-module.ts" />
+    <TypeScriptCompile Include="Angular\Shared\admin-sidebar.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\administration-new-customer-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\administration-customer-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\administration-customer-listing-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\administration-customer-module.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\administration-customer-web-service.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\address-public-module.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\address-public-utility.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\address-public-web-service.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\administration-customer-interface.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\administration-customer-listing-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\administration-customer-screen-constant-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\city-sorting-paging-info-model.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\get-administration-customer-dto.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\get-administration-customer-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\save-administration-customer-dto.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationCustomer\Model\save-administration-customer-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\administration-product-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\administration-product-listing-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\administration-product-interface.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\get-administration-product-dto.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\get-administration-product-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\save-administration-product-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\save-administration-product-dto.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\Model\administration-product-listing-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\administration-new-product-controller.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\administration-product-module.ts" />
+    <TypeScriptCompile Include="Areas\Administration\Angular\AdministrationProduct\administration-product-web-service.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\authentication-controller.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\auth-module.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\authentication-2-web-service.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\Model\auth-screen-state-enum.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\Model\forgot-password-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Authentication\Angular\Model\register-screen-constant-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\bank-reconciliation-controller.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\bank-reconciliation-listing-controller.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\bank-reconciliation-module.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\bank-reconciliation-web-service.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\analyse-bank-reconciliation-file-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\analyse-bank-reconciliation-file-for-batch-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\analyse-bank-reconciliation-file-for-batch-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\analyse-bank-reconciliation-file-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\bank-reconciliation-list-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\bank-reconciliation-sorting-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\get-bank-reconciliation-screen-constant-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\load-bank-reconciliation-content-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\load-bank-reconciliation-content-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\load-bank-reconciliation-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\load-bank-statement-staging-detail-batch-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\load-bank-statement-staging-detail-batch.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\print-transaction-receipts-for-batch-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\reconcile-bank-order-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\save-bank-reconciliation-file-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\save-bank-reconciliation-file-return-type.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\Model\save-reconcile-bank-order-dto.ts" />
+    <TypeScriptCompile Include="Areas\BankReconciliation\Angular\BankReconciliation\reconcile-bank-order-popup-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\add-installment-popup-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\customer-search-popup-modal-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\define-frequency-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\define-frequency-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\customer-list-sorting-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-customer-list-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-customer-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-last-payment-date-for-customer-dto.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-payment-due-detail-dto.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-payment-due-detail-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-last-payment-date-for-customer-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-scheduled-transaction-dto.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\get-scheduled-transaction-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\load-scheduled-transactions-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\product-list-sorting-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\save-payment-for-transaction-due-dto.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\save-payment-for-transaction-due-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\save-scheduled-transaction-dto.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\save-scheduled-transaction-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\subscription-interface.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\subscription-model.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\transaction-list-sorting-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\Model\view-schedule-transaction-model.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\payment-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\payment-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\payment-scheduled-transaction-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\payment-scheduled-transaction-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\product-search-popup-modal-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\schedule-transaction-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\schedule-transaction-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\select-customer-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\select-customer-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\select-transaction-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\select-transaction-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\subscription-web-service.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\summary-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\summary-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\view-all-scheduled-transaction-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\view-all-scheduled-transactions-controller.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\view-scheduled-transaction-module.ts" />
+    <TypeScriptCompile Include="Areas\Subscription\Angular\view-scheduled-transactions-controller.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-email-for-transaction-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-email-for-transaction-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-signature-for-temporary-transaction-signature-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-signature-for-temporary-transaction-signature-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-temporary-transaction-signature-for-workstation-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\get-temporary-transaction-signature-for-workstation-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\save-email-for-transaction-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\save-email-for-transaction-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\save-temporary-transaction-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\save-temporary-transaction-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\send-email-to-client-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\transaction-entity-model.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\Model\transaction-sale-listing-paging-info.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\save-transaction-payment-dto.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\save-transaction-payment-return-type.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\transaction-sale-controller.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\credit-transaction-sale-listing-controller.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\transaction-sale-listing-controller.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\transaction-sale-module.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\transaction-sale-signature-controller.ts" />
+    <TypeScriptCompile Include="Areas\Transaction\Angular\transaction-sale-web-service.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\accountingjs\accounting.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\fastclick.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\angularjs\sweetalert.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\ej\ej.web.all.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\jsPlumb\jsPlumb.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\linq\linq.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\linq\linq.jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\angular_typings\signalR\signalr.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3675</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44320/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.6.4\build\Microsoft.TypeScript.MSBuild.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

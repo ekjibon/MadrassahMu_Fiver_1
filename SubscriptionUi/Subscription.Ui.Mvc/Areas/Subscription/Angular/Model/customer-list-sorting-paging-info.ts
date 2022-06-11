@@ -1,0 +1,3 @@
+﻿class customerListSortingPagingInfo extends sortingPagingInfoModel {
+    
+}

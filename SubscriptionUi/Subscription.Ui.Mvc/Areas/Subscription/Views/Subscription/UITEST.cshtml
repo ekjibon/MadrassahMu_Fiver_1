@@ -1,0 +1,80 @@
+﻿@using Subscription.Service
+@using Newtonsoft.Json
+
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=2.0">
+        <title>@ViewBag.Title</title>
+        <script>
+            @{
+                var controllerName = ViewContext.RouteData.Values["controller"] != null ? ViewContext.RouteData.Values["controller"].ToString() : "";
+                var actionName = ViewContext.RouteData.Values["action"] != null ? ViewContext.RouteData.Values["action"].ToString() : "";
+                var areaName = ViewContext.RouteData.Values["area"] != null ? ViewContext.RouteData.Values["area"].ToString() : "";
+                string isUserLoggedIn = JsonConvert.SerializeObject(ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null);
+                string loggedInUserDetail = "''";
+                if (ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null)
+                {
+                    loggedInUserDetail = JsonConvert.SerializeObject(ServiceFactory.Instance.UserService.MapUserToNonConfidentialInfo());
+                }
+            }
+            var controllerName =  '@controllerName';
+            var actionName =  '@actionName';
+            var areaName = '@areaName';
+            var globalBaseServerUrl = 'http://subscription.mosociete.com/';
+            var isUserLoggedIn = @Html.Raw(isUserLoggedIn)
+            var loggedInUserDetail = @Html.Raw(loggedInUserDetail)
+        </script>
+        @Styles.Render("~/Scripts/custom/css/index.css")
+        @Styles.Render("~/Scripts/custom/css/main.css")
+        @Styles.Render("~/Scripts/custom/css/bootstrap.css")
+        @Styles.Render("~/Scripts/custom/css/select.min.css")
+        @Styles.Render("~/bundles/bower-front-end-css")
+
+
+        @Scripts.Render("~/bundles/jquery-js")
+        @Scripts.Render("~/bundles/bootstrap-js")
+        @Scripts.Render("~/bundles/theme-js")
+        @Scripts.Render("~/bundles/theme-front-end-front-js")
+
+        @Scripts.Render("~/bundles/mandatory-front-end-js")
+        @Scripts.Render("~/bundles/bower-front-end-js")
+        @Scripts.Render("~/bundles/authentication-js")
+        @Scripts.Render("~/bundles/angular-common-js")
+        @Scripts.Render("~/bundles/plugins-js")
+        @Scripts.Render("~/bundles/angular-base-js")
+        @Scripts.Render("~/bundles/angular-after-load-js")
+        @Scripts.Render("~/bundles/angular-directives")
+
+        @Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+
+    </head>
+    <body>
+        <div ng-app="baseModule">
+            <div ng-controller="baseController">
+                <div class="row">
+                    <input type='text' />
+                </div>
+                <div class="row">
+
+                    <div class="row">
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <ui-select ng-model="superhero.selected" autofocus>
+                                    <ui-select-match placeholder="Select or search a superhero ...">{{$select.selected}}</ui-select-match>
+                                    <ui-select-choices repeat="hero in getSuperheroes($select.search) | filter: $select.search">
+                                        <div ng-bind="hero"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label class="col-sm-3 control-label">You have chosen {{ superhero.selected }}!</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

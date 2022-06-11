@@ -1,0 +1,3 @@
+﻿class getBankReconciliationScreenConstantReturnType {
+    banks: bankModel[];
+}

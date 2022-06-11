@@ -1,0 +1,334 @@
+﻿@using Subscription.Service
+@using Newtonsoft.Json
+
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>@ViewBag.Title</title>
+    <script>
+        @{
+            var controllerName = ViewContext.RouteData.Values["controller"] != null ? ViewContext.RouteData.Values["controller"].ToString() : "";
+            var actionName = ViewContext.RouteData.Values["action"] != null ? ViewContext.RouteData.Values["action"].ToString() : "";
+            var areaName = ViewContext.RouteData.Values["area"] != null ? ViewContext.RouteData.Values["area"].ToString() : "";
+            string isUserLoggedIn = JsonConvert.SerializeObject(ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null);
+            string loggedInUserDetail = "''";
+            if (ServiceFactory.Instance.GlobalVariableService.UserLoggedWithDetail != null)
+            {
+                loggedInUserDetail = JsonConvert.SerializeObject(ServiceFactory.Instance.UserService.MapUserToNonConfidentialInfo());
+            }
+        }
+        var controllerName =  '@controllerName';
+        var actionName =  '@actionName';
+        var areaName = '@areaName';
+
+        var globalBaseServerUrl = '@(Url.Content("~/",true))';
+        var currentBaseServerUrl = '@(Url.Content("~/",true))';
+
+        var isUserLoggedIn = @Html.Raw(isUserLoggedIn)
+        var loggedInUserDetail = @Html.Raw(loggedInUserDetail)
+    </script>
+    @Styles.Render("~/Scripts/custom/css/index.css")
+    @Styles.Render("~/Scripts/custom/css/main.css")
+    @Styles.Render("~/Scripts/custom/css/bootstrap.css")
+    @Styles.Render("~/Scripts/custom/css/select.min.css")
+    @Styles.Render("~/bundles/bower-front-end-css")
+
+
+    @Scripts.Render("~/bundles/jquery-js")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @Scripts.Render("~/bundles/theme-js")
+    @Scripts.Render("~/bundles/theme-front-end-front-js")
+
+    @Scripts.Render("~/bundles/mandatory-front-end-js")
+    @Scripts.Render("~/bundles/bower-front-end-js")
+    @Scripts.Render("~/bundles/authentication-js")
+    @Scripts.Render("~/bundles/angular-common-js")
+    @Scripts.Render("~/bundles/plugins-js")
+    @Scripts.Render("~/bundles/angular-base-js")
+    @Scripts.Render("~/bundles/angular-after-load-js")
+    @Scripts.Render("~/bundles/angular-directives")
+
+    @Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+
+    @RenderSection("childController", required: false)
+
+</head>
+<body ng-app="baseModule">
+    <div ng-controller="baseController">
+        <div class="grid-container js-grid-container">
+            <!-- header start -->
+            <header class="header">
+                <div class="header__left">
+                    <div class="header__logo">
+                        <a href=""><img src="~/Content/images/logo/logo.png" alt=""></a>
+                    </div>
+                    <div class="header__title">
+                        <h1>Subscription</h1>
+                    </div>
+                </div>
+                <div class="header__right">
+                    <div class="header__search">
+                        <input class="header__search--field" type="text" placeholder="Search..."><span class="header__icon"><img src="~/Content/images/Header-icons/2x/ic_search.png" alt=""></span>
+                    </div>
+                    <div class="header__notification">
+                        <a href="#">
+                            <span class="header__icon">
+                                <img src="~/Content/images/Header-icons/2x/ic_notifications.png"
+                                     alt="">
+                            </span>
+                        </a>
+                    </div>
+                    <div class="header__avatar" ng-click="baseController.logout()">
+                        <a href="#">
+                            <span class="header__avatar--img">
+                                <img src="~/Content/images/Header-icons/2x/ic_account_circle.png"
+                                     alt="">
+                            </span>
+                            <span class="header__avatar--name">
+                                {{baseController.globalVariableFactory.loggedInUserDetail.firstname}}
+                                {{baseController.globalVariableFactory.loggedInUserDetail.lastname}}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <!-- header end -->
+            <!-- sidenav start -->
+            <div class="sidenav__toggle">
+                <a class="sidenav__toggle-icon js-sidenav-toggle">
+                    <img src="~/Content/images/Navigation/2x/ic_first_page_-2@2x.png"
+                         alt="">
+                </a>
+            </div>
+            <aside class="sidenav">
+                <div class="sidenav__close-icon">
+                    <i class="fas fa-times sidenav__brand-close"></i>
+                </div>
+                <ul class="sidenav__list">
+                    <!-- Dashboard Item -->
+                    <li class="sidenav__list-dropdown">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_home.png" alt=""></span>
+                            <span class="sidenav__list-text">Dashboard</span>
+                            <!--span class="sidenav__list-toggle js-toggle">
+                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+            </span-->
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+                                <!--li>
+                    <span class="sidenav__list-icon">
+                        <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                             alt="">
+                    </span>
+                    <span class="sidenav__list-text">Default</span>
+                </li-->
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 1 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Customer</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+                                <li>
+                                    <a href="~/Administration/AdministrationCustomer/AdministrationCustomer/">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Create New Customer</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Administration/AdministrationCustomer/AdministrationCustomerListing/">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">View Customers</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 2 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Product</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+                                <li>
+                                    <a href="~/Administration/AdministrationProduct/AdministrationProduct/">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Create New Product</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Administration/AdministrationProduct/AdministrationProductListing/">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">View Products</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 3 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Transaction</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+
+                                <li>
+                                    <a href="~/Transaction/Transaction/TransactionSale/-1">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Create New Transaction</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Transaction/Transaction/TransactionSaleListing">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">View All Transactions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Transaction/Transaction/CreditTransactionSaleListing">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">View All Credit Transactions</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 4 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Subscription</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+                                <li>
+                                    <a href="~/Subscription/Subscription/ScheduleTransactionSale/-1">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Create New Scheduled Transactions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Subscription/Subscription/ViewAllScheduledTransactions">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">View All Scheduled Transactions</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 5 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Bank Reconciliation</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item">
+                            <ul>
+                                <li>
+                                    <a href="~/BankReconciliation/BankReconciliation">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">New Bank Reconciliation</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/BankReconciliation/BankReconciliation/BankReconciliationListing">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Bank Reconciliation Listing</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                    <!-- Item 6 -->
+                    <li class="sidenav__list-dropdown closed">
+                        <a class="sidenav__list-dropdown-title js-dropdown-item-title">
+                            <span class="sidenav__list-icon"><img src="~/Content/images/Menu/2x/ic_more_vert_-1.png" alt=""></span>
+                            <span class="sidenav__list-text">Reports</span>
+                            <span class="sidenav__list-toggle js-toggle">
+                                <img src="~/Content/images/Navigation/2x/ic_chevron_up_-7@2x.png" alt="">
+                            </span>
+                        </a>
+                        <div class="sidenav__list-dropdown-item js-dropdown-item" ng-controller="transactionSaleListingController">
+                            <ul>
+                                <li>
+                                    <a href="" ng-click="controller.showMyTransactionReport()">
+                                        <span class="sidenav__list-icon">
+                                            <img src="~/Content/images/Navigation/2x/ic_arrow_forward_-1@2x.png"
+                                                 alt="">
+                                        </span><span class="sidenav__list-text">Close of Business Report</span>
+                                    </a>
+                                </li>
+                            </ul><span class="sidenav__list-text"></span>
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+            <!-- sidenav end -->
+
+            @RenderBody()
+
+            <!-- footer start -->
+            <footer class="footer">
+                <div class="footer__logo">
+                    <img src="~/Content/images/logo/logo.png" alt="">
+                </div>
+            </footer>
+            <!-- footer end -->
+        </div>
+
+            <!--footer>
+            <p>&copy; @*DateTime.Now.Year*@ - Powered by Pentagon Solutions Ltd </p>
+        </!footer-->
+        </div>
+</body>
+</html>

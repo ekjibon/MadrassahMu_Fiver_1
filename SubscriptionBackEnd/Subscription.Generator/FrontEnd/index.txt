@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/##{{splitByCamelCaseConcatEntity}}##-script")
+<div ng-controller="##{{camelCaseEntity}}##Controller">
+    <!-- start: PAGE TITLE -->
+    <section id="page-title" class="quote-navbar-collapse">
+        <div class="row">
+            <div class="col-sm-7 quote-title-container">
+                <h1 class="mainTitle">##{{entityNameAllCapital}}##</h1>
+            </div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: YOUR CONTENT HERE -->
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12 margin-bottom-25">
+                <button type="button" class="btn btn-primary btn-wide" ng-click="controller.addEditItem(controller.baseController.modeEnums.ADD)">
+                    <i class="fa fa-plus margin-right-10"></i>Add New
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 margin-bottom-10">
+                <div class="row">
+                    <div class="col-xs-9">
+                        <span class="input-icon">
+                            <input type="text" placeholder="Description" class="form-control" ng-model="controller.sortingPagingInfo.search">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    <div class="col-xs-3">
+                        <button type="button" class="btn btn-primary btn-wide btn-scroll btn-scroll-top fa-search hidden-xs hidden-sm" ng-click="controller.startSearch()">
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <table id="tblProductList" class="quote-table table table-striped" tr-ng-grid="" items="controller.listing"
+                       selected-items="controller.selectedItem" selection-mode="SingleRow"
+                       enable-filtering="false" on-data-required-delay="500"
+                       current-page="controller.sortingPagingInfo.currentPageIndex"
+                       page-items="controller.sortingPagingInfo.pageSize"
+                       total-items="controller.sortingPagingInfo.pageCount"
+                       order-by="controller.sortingPagingInfo.sortField"
+                       order-by-reverse="controller.sortingPagingInfo.sortByDesc"
+                       on-data-required="controller.gridLoad(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                    <thead>
+                        <tr>
+                            <th field-name="description" display-name="Description" enable-filtering="false" display-align="center"></th>
+                            <th field-name="actions" display-name="Actions" enable-filtering="false" enable-sorting="false" display-align="center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td field-name="actions" class="quote-editable-list">
+                                <div class="text-center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs quote-list-action-icon">
+                                        <a class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-pencil TheHub-edit-list-item" ng-click="controller.addEditItem(controller.baseController.modeEnums.EDIT,gridItem)"></i></a>
+                                        <a class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Delete"><i class="fa fa-minus-circle TheHub-edit-list-item text-red" ng-click="controller.deleteItem(gridItem)"></i></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td align="center">
+                                <span class="form-group pull-left page-size ">
+                                    <select class="cs-select cs-skin-slide quote-select"
+                                            ng-options="item.value as item.text for item in controller.baseController.pageSizeList"
+                                            ng-model="controller.sortingPagingInfo.pageSize"></select>
+                                </span>
+                                <span tr-ng-grid-pager="" style="height:40px;"></span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end: YOUR CONTENT HERE -->
+</div>
+

@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="box__container customer-name" ng-controller="selectCustomerController">
+    <div class="box__row">
+        <div class="box__col--20"><label for="customerName">Select Customer</label></div>
+        <div class="box__col--45">
+            <ui-select autofocus="true"
+                       ng-model="controller.selectedCustomer"
+                       ng-disabled="controller.currentMode==controller.mode.VIEW"
+                       theme="bootstrap"
+                       title="Choose a employee"
+                       id="customerName"
+                       name="customerName"
+                       tabindex="0"
+                       ng-keyup="controller.onCustomerTypeIn($select.search, $event)"
+                       on-select="controller.onCustomerSelected()"
+                       >
+                <ui-select-match placeholder="Search Customer...">{{$select.selected.fullName}}</ui-select-match>
+                <ui-select-choices repeat="customer in controller.customerList| limitTo: 10 | filter: {fullName: $select.search} track by $index ">
+                    <!--ui-select-choices repeat="customer in controller.customerList | filter: {fullName: $select.search, person: {nationalIdentificationNumber: $select.search}} track by $index"-->
+                    <div ng-bind-html="customer.fullName | highlight: $select.search"></div>
+                    <small>
+                        <span>NIC: </span>
+                        <span ng-bind-html="''+customer.person.nationalIdentificationNumber | highlight: $select.search"></span>
+                    </small>
+                    <br />
+                    <small>
+                        <span>Address: {{customer.person.person_Address[0].address.addressLine1}}, {{customer.person.person_Address[0].address.city}}</span>
+                    </small>
+                </ui-select-choices>
+            </ui-select>
+            <div class="app__button--adv-search" ng-click="controller.searchCustomer()"><a href="" tabindex="2">...</a></div>
+            <div class="app_nav-spacer"></div>
+            <div class="app__button--adv-search"  style="margin-left:10px;" ng-show="controller.selectedCustomer.idCustomer>0"><a href="" tabindex="1" ng-click="controller.loadTransactionsPerCustomer()">⇄</a></div>
+        </div>
+    </div>
+    <div class="box__row">
+        <div class="box__col--80">
+            <span style="font-size:12px;font-style:italic">(Press enter after typing to search for Customers)</span>
+        </div>
+    </div>
+
+    <div class="box__row" ng-show="controller.callerController.transactionsForCustomer.length>0">
+        <div class="box__col--100 table__container">
+            <table tr-ng-grid="" items="controller.callerController.transactionsForCustomer"
+                   class="hover table-bordered border-top-0 border-bottom-0 table-pos"
+                   on-data-required-delay="500"
+                   current-page="controller.paging.pageIndex"
+                   page-items="controller.paging.pageSize"
+                   total-items="controller.paging.totalCount"
+                   order-by="controller.paging.sortColumn"
+                   order-by-reverse="controller.paging.sortByDesc"
+                   on-data-required="controller.loadTransactions(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                <thead>
+                    <tr>
+                        <th field-name="receiptNo" display-name="Receipt No" enable-sorting="true" enable-filtering="false" display-align="right">
+                        </th>
+                        <th field-name="customer.fullName" display-name="Customer" enable-sorting="true" enable-filtering="false" display-align="right">
+                        </th>
+                        <th field-name="transactionDate" display-name="Date" enable-sorting="true" enable-filtering="false" display-align="right" display-format="date:'dd-MM-yyyy'">
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Amount
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="height:25px;">
+                        <td>
+                            <div class="center">
+                                {{gridItem.totalAmount | number:2}}
+                            </div>
+                        </td>
+                        <td>
+                            <span><a ng-click="controller.viewTransaction(gridItem,0)">View</a> | <a ng-click="controller.selectTransaction(gridItem,2)">Edit</a></span>
+                            <!--button style="font-size: 0.60em;" ng-click="controller.selectTransaction(gridItem,2)">Select</button-->
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <span> {{(controller.paging.pageSize * controller.paging.currentPageIndex) - controller.paging.pageSize | number}} - {{(controller.paging.pageSize * controller.paging.currentPageIndex)| number }} displayed , {{controller.paging.pageCount | number}} in total</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="app__nav" ng-cloak>
+        <div class="app__nav-button-container">
+            <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER" ng-click="indexController.next()">
+                <a><span><img src="~/Content/images/Navigation/2x/ic_chevron_left_-2@2x.png" alt="" tabindex="3"></span>NEXT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--controller.currentMode==controller.screenMode.EDIT || controller.currentMode==controller.screenMode.VIEW-->

@@ -1,0 +1,3 @@
+﻿class saveAdministrationProductDto {
+    product: productModel;
+}

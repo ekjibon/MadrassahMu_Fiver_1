@@ -1,0 +1,220 @@
+﻿@{
+    Layout = null;
+}
+
+@Scripts.Render("~/bundles/subscription-select-transaction-js")
+@Scripts.Render("~/bundles/subscription-essentials-js")
+
+<style>
+    textarea {
+        overflow: hidden;
+    }
+</style>
+
+<div class="select-transaction" ng-controller="selectTransactionController">
+    <div class="box__container">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="customerName">Customer Name</label>
+            </div>
+            <div class="box__col--35">
+                <!--input type="text" id="customerName" name="customerName" ng-model="controller.selectedCustomer.fullName" disabled-->
+                <ui-select ng-model="controller.selectedCustomer" ng-disabled="controller.currentMode==controller.mode.VIEW"
+                           theme="bootstrap"
+                           title="Choose a customer"
+                           id="customerName"
+                           name="customerName"
+                           ng-keyup="controller.onCustomerTypeIn($select.search, $event)"
+                           autofocus="true" ui-select-opened
+                           z-index="1010">
+                    <ui-select-match placeholder="Search Customer...">{{$select.selected.fullName}}</ui-select-match>
+                    <ui-select-choices repeat="customer in controller.customerList | filter: $select.search">
+                        <div ng-bind-html="customer.fullName | highlight: $select.search"></div>
+                        <small>
+                            <span>ID: {{customer.idCustomer}}</span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="receiptNumber">Receipt No</label>
+            </div>
+            <div class="box__col--27">
+                <input type="text" id="receiptNumber" name="receiptNumber" placeholder="" ng-model="controller.transaction.receiptNo" disabled>
+            </div>
+        </div>
+        <div class="box__row">
+            <div class="box__col--55" style="justify-content: end;">
+                <span style="font-size:12px;font-style:italic">(Press enter after typing to search for Customers)</span>
+            </div>
+        </div>
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="stockQuantity">Address</label>
+            </div>
+            <div class="box__col--80">
+                <input type="text" id="address" name="address" placeholder="" ng-model="controller.customerAddress" disabled>
+            </div>
+        </div>
+        <div class="box__row" ng-hide="controller.seeMore">
+            <span ng-click="controller.isSeeMoreClicked()" style="color:#148CA0; cursor: pointer;">See More ▼</span>
+        </div>
+        <div class="box__row" ng-show="controller.seeMore">
+            <div class="box__col--20 label-col">
+                <label for="remarks">Memo</label>
+            </div>
+            <div class="box__col--35">
+                <textarea ng-disabled="controller.currentMode==controller.mode.VIEW" id="memo" name="memo" placeholder="Memo" ng-model="controller.transaction.memo"></textarea>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="transactionDate">Date</label>
+            </div>
+            <div class="box__col--27">
+                <input type="datetime-local" id="transactionDate" name="transactionDate" ng-model="controller.transaction.transactionDate" ng-disabled="controller.currentMode==controller.mode.VIEW">
+            </div>
+        </div>
+        <div class="box__row" ng-show="controller.seeMore">
+            <span ng-click="controller.isSeeMoreClicked()" style="color:#148CA0; cursor: pointer;">See Less ▲</span>
+        </div>
+    </div>
+
+    <div class="box__container add-product">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="productName">Add Product</label>
+            </div>
+            <div class="box__col--45">
+                <ui-select ng-disabled="controller.currentMode==controller.mode.VIEW"
+                           on-select="controller.checkIfAvailableInScheduledTransactions()"
+                           ng-model="controller.selectedTransactionDetail.product"
+                           theme="bootstrap" title="Choose a product" id="productName" name="productName" z-index="10009"
+                           ng-keyup="controller.onProductTypeIn($select.search, $event)">
+                    <ui-select-match placeholder="Search Products...">{{$select.selected.description}}</ui-select-match>
+                    <ui-select-choices repeat="product in controller.productList | filter: $select.search">
+                        <div ng-bind-html="product.description | highlight: $select.search"></div>
+                        <small>
+                            <span>Name: {{product.name}}</span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select>
+                <div ng-click="controller.searchProduct()" class="app__button--adv-search">
+                    <a href="">...</a>
+                </div>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="stockQuantity">Stock</label>
+            </div>
+            <div class="box__col--17">
+                <input type="number" id="stockQuantity" name="stockQuantity" ng-model="controller.selectedTransactionDetail.stock" disabled>
+            </div>
+        </div>
+        <div class="box__row">
+            <div class="box__col--65" style="justify-content: end;">
+                <span style="font-size:12px;font-style:italic">(Press enter after typing to search for Products)</span>
+            </div>
+        </div>
+        <div class="box__row" ng-show="controller.checkIfAvailableInScheduledTransactions()">
+            <div class="box__col--65">
+                <div class="alert-warning">There is a scheduled transaction by this customer for the product you selected.</div>
+            </div>
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="amount">Amount (Rs)</label>
+            </div>
+            <div class="box__col--45">
+                <input type="number" z-index="10008" id="amount" name="amount" placeholder="" ng-model="controller.selectedTransactionDetail.rate" ng-disabled="controller.currentMode==controller.mode.VIEW">
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="quantity">Quantity</label>
+            </div>
+            <div class="box__col--17">
+                <input type="number" id="quantity" name="quantity" ng-keyup="$event.keyCode == 13 && controller.addProduct()" ng-model="controller.selectedTransactionDetail.quantity" z-index="10007" ng-init="controller.selectedTransactionDetail.quantity=1" ng-disabled="controller.currentMode==controller.mode.VIEW">
+            </div>
+        </div>
+
+
+        <div class="box__row product-remarks">
+            <div class="box__col--20 label-col">
+                <label for="remarks">Remarks</label>
+            </div>
+            <div class="box__col--45">
+                <!--textarea id="remarks" name="remarks" placeholder="Remarks..." ng-model="controller.selectedTransactionDetail.remarks"></textarea-->
+                <textarea ng-disabled="controller.currentMode==controller.mode.VIEW" id="remarks" name="remarks"
+                          ng-model="controller.selectedTransactionDetail.remarks" placeholder="Remarks..." z-index="10006"
+                          ng-keyup="$event.keyCode == 13 && controller.addProduct()"></textarea>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--15 button-col" ng-hide="controller.currentMode==controller.mode.VIEW" z-index="10005">
+                <div class="app__button--add" ng-click="controller.addProduct()">
+                    <a><span><img src="~/Content/images/Actions/2x/ic_add_-2@2x.png" alt=""></span>Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box__container product-added" ng-show="controller.transactionDetails.length>0">
+        <div class="box__row">
+            <div class="box__col--20">
+                <h2>Products Added</h2>
+            </div>
+
+            <span class="box__col--40"></span>
+
+            <div class="box__col--10">
+                <label for="total">Total: </label>
+            </div>
+            <div class="box__col--30" style="justify-content:flex-end;">
+                <span style=" border: 1px solid black;padding: 5px 5px 5px 75px;background-color: #F2F2F2;">{{controller.totalTransactionAmount()| number:2}}</span>
+            </div>
+
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--100 table__container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th>Qty</th>
+                            <th>Remark</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="transactionDetail in controller.transactionDetails track by $index">
+                            <td>{{transactionDetail.product.description}}</td>
+                            <td>{{transactionDetail.rate | number:2}}</td>
+                            <td>{{transactionDetail.quantity}}</td>
+                            <td>{{transactionDetail.remarks}}</td>
+                            <td>{{transactionDetail.rate*transactionDetail.quantity  | number:2}}</td>
+                            <td ng-hide="controller.currentMode==controller.mode.VIEW"><a class="app__button--remove" ng-click="controller.removeTransactionDetail(transactionDetail)"><img src="~/Content/images/Actions/2x/ic_close_-1@2x.png" alt=""></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="app__nav" ng-cloak>
+        <div class="app__nav-button-container">
+            <div class="app_nav-spacer"></div>
+            <div class="app__button app__button--nav"  ng-hide="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.next()">
+                <a z-index="10002">NEXT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //$('textarea').on('input', function () {
+        //$(this).outerHeight(20).outerHeight(this.scrollHeight);
+    //});
+    //$('textarea').trigger('input');
+</script>

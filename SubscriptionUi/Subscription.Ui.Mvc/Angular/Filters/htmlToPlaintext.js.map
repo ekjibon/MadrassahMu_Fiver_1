@@ -1,0 +1,1 @@
+{"version":3,"file":"htmlToPlaintext.js","sourceRoot":"","sources":["htmlToPlaintext.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,UAAU;KACL,MAAM,CAAC,iBAAiB,EAAE;IACvB,OAAO,UAAU,IAAI;QACjB,OAAO,MAAM,CAAC,IAAI,CAAC,CAAC,OAAO,CAAC,WAAW,EAAE,EAAE,CAAC,CAAC;IACjD,CAAC,CAAC;AACN,CAAC,CACA,CAAC"}

@@ -1,0 +1,3 @@
+﻿class getCustomerListReturnType {
+    customers: customerModel[];
+}

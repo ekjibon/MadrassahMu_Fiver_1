@@ -1,0 +1,158 @@
+﻿@{
+    Layout = null;
+}
+
+<div ng-controller="administrationNewCustomerController">
+    <div class="box__container add-product">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="customerType">Customer Type</label>
+            </div>
+            <div class="box__col--25">
+                <ui-select on-select="controller.onCustomerTypeSelected($item)" ng-model="controller.customer.customerType" ng-disabled="" theme="bootstrap" id="customerType" name="customerType">
+                    <ui-select-match placeholder="Search Customer Type...">{{$select.selected.description}}</ui-select-match>
+                    <ui-select-choices repeat="item in controller.customerTypes | filter: $select.search">
+                        <div ng-bind-html="item.description | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <span class="box__col--10"></span>
+            <div class="box__col--20" ng-if="controller.customer.idCustomerType != controller.customerTypeEnum.COMPANY">
+                <label for="title">Title</label>
+            </div>
+            <div class="box__col--25" ng-if="controller.customer.idCustomerType != controller.customerTypeEnum.COMPANY">
+                <ui-select on-select="controller.onTitleSelected($item)" ng-model="controller.customer.person.title" ng-disabled="" theme="bootstrap" id="title" name="title">
+                    <ui-select-match placeholder="Search Title...">{{$select.selected.description}}</ui-select-match>
+                    <ui-select-choices repeat="item in controller.titles | filter: $select.search">
+                        <div ng-bind-html="item.description | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+
+        <div ng-if="controller.customer.idCustomerType == controller.customerTypeEnum.PERSON">
+            <div class="box__row">
+                <div class="box__col--20">
+                    <label for="firstname">First Name</label>
+                </div>
+                <div class="box__col--25">
+                    <input type="text" id="firstname" name="firstname" ng-model="controller.customer.person.firstname">
+                </div>
+                <span class="box__col--10"></span>
+                <div class="box__col--20">
+                    <label for="lastname">Last Name</label>
+                </div>
+                <div class="box__col--25">
+                    <input type="text" id="lastname" name="lastname" ng-model="controller.customer.person.lastname">
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="box__col--20">
+                    <label for="nationalIdentificationNumber">National Identification Number</label>
+                </div>
+                <div class="box__col--25">
+                    <input type="text" id="nationalIdentificationNumber" name="nationalIdentificationNumber" ng-model="controller.customer.person.nationalIdentificationNumber">
+                </div>
+                <span class="box__col--10"></span>
+                <div class="box__col--20">
+                    <label for="lname">Account Number</label>
+                </div>
+                <div class="box__col--25">
+                    <input type="text" id="accountNumber" name="accountNumber" placeholder="" ng-model="controller.customer.accountNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="box__row" ng-if="controller.customer.idCustomerType == controller.customerTypeEnum.COMPANY">
+            <div class="box__col--20">
+                <label for="companyName">Company Name</label>
+            </div>
+            <div class="box__col--25">
+                <input type="text" id="companyName" name="companyName" ng-model="controller.customer.company.name">
+            </div>
+            <span class="box__col--10"></span>
+            <div class="box__col--20">
+                <label for="brn">BRN</label>
+            </div>
+            <div class="box__col--25">
+                <input type="text" id="brn" name="brn" placeholder="" ng-model="controller.customer.company.registrationCode">
+            </div>
+        </div>
+
+        <div class="box__row" ng-if="controller.customer.idCustomerType == controller.customerTypeEnum.COMPANY">
+            <div class="box__col--20">
+                <label for="vat">VAT No</label>
+            </div>
+            <div class="box__col--25">
+                <input type="text" id="vat" name="vat" ng-model="controller.customer.company.vatRegistrationNo">
+            </div>
+        </div>
+    </div>
+
+    <div class="box__container add-product">
+        <div class="box__row" ng-if="controller.customer.idCustomerType == controller.customerTypeEnum.PERSON">
+            <div class="box__col--20">
+                <label for="email">Email Address</label>
+            </div>
+            <div class="box__col--45">
+                <input type="text" id="email" name="email" ng-model="controller.customer.person.person_ContactType[0].description">
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="box__col--17">
+                <input type="text" id="phone" name="phone" placeholder="" ng-model="controller.customer.person.person_ContactType[1].description">
+            </div>
+        </div>
+
+        <div class="box__row" ng-if="controller.customer.idCustomerType == controller.customerTypeEnum.COMPANY">
+            <div class="box__col--20">
+                <label for="email">Email Address</label>
+            </div>
+            <div class="box__col--45">
+                <input type="text" id="email" name="email" ng-model="controller.customer.company.company_ContactType[0].description">
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="box__col--17">
+                <input type="text" id="phone" name="phone" placeholder="" ng-model="controller.customer.company.company_ContactType[1].description">
+            </div>
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="address">Address</label>
+            </div>
+            <div class="box__col--45">
+                <input type="text" id="address" name="address" ng-model="controller.address.addressLine1">
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="city">City</label>
+            </div>
+            <div class="box__col--17">
+                <input type="text" id="city" name="city" placeholder="" ng-model="controller.address.city">
+            </div>
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="country">Country</label>
+            </div>
+            <div class="box__col--80">
+                <ui-select on-select="controller.onCountrySelected($item)" ng-model="controller.address.country" ng-disabled="" theme="bootstrap" id="country" name="country">
+                    <ui-select-match placeholder="Search Country...">{{$select.selected.description}}</ui-select-match>
+                    <ui-select-choices repeat="item in controller.countries | filter: $select.search">
+                        <div ng-bind-html="item.description | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+
+        <toaster-container></toaster-container>
+    </div>
+</div>

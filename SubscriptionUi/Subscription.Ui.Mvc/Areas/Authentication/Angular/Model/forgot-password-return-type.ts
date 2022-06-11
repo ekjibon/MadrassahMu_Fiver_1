@@ -1,0 +1,3 @@
+﻿class forgotPasswordReturnType {
+    message: string;
+}

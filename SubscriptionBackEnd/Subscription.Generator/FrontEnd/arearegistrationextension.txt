@@ -1,0 +1,22 @@
+using CoreWeb.Ui.Common.Mvc;
+using System.Web.Mvc;
+using System.Web.Optimization;
+
+namespace TheHub.Ui.Mvc.Areas.##{{baseArea}}##
+{
+    public partial class ##{{entityName}}##AreaRegistration : AreaRegistration 
+    {
+        public void RegisterBundlesExtension()
+        {
+            bundles.Add(new ScriptBundle("~/bundles/##{{splitByCamelCaseConcatEntity}}##-script").Include(
+                "~/Areas/##{{entityName}}##/Angular/##{{entityName}}##/##{{splitByCamelCaseConcatEntity}}##-web-service.generated.js",
+                "~/Areas/##{{entityName}}##/Angular/##{{entityName}}##/##{{splitByCamelCaseConcatEntity}}##-controller.generated.js",
+                "~/Areas/##{{entityName}}##/Angular/##{{entityName}}##/##{{splitByCamelCaseConcatEntity}}##-module.generated.js"
+            ));
+        }
+        public void RegisterAreaExtension()
+        {
+
+        }
+    }
+}

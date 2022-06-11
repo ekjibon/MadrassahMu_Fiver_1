@@ -1,0 +1,3 @@
+﻿class sendEmailToClientDto {
+    idTransaction:number
+}

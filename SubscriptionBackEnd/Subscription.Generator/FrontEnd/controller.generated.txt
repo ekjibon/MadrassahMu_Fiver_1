@@ -1,0 +1,17 @@
+﻿class ##{{camelCaseEntity}}##Controller extends simpleEntityController<##{{camelCaseEntity}}##WebService,##{{camelCaseEntity}}##Controller,##{{camelCaseEntity}}##Model>{
+    scope;
+    baseController: baseController;
+    ##{{camelCaseEntity}}##WebService: ##{{camelCaseEntity}}##WebService;
+    controller: ##{{camelCaseEntity}}##Controller;
+    listing: ##{{camelCaseEntity}}##Model[];
+    sortingPagingInfo: sortingPagingInfoModel;
+    totalCount: number;
+    currentPage: number;
+    constructor($scope
+        , ##{{camelCaseEntity}}##WebService: ##{{camelCaseEntity}}##WebService) {
+        super($scope, ##{{camelCaseEntity}}##WebService,"id##{{entityName}}##");
+        $scope.controller = this;
+    }
+    public broadcastfinishOk() { }
+    public broadcastBeforeOk() { }
+}

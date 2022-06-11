@@ -1,0 +1,133 @@
+﻿@{
+    Layout = null;
+    var isSubSection = false;
+    if (ViewContext.RouteData.Values["isSubsection"] != null && ViewContext.RouteData.Values["isSubsection"].ToString() == "1")
+    {
+        isSubSection = true;
+    }
+}
+@Scripts.Render("~/bundles/subscription-summary-js")
+
+<div class="summary" ng-controller="summaryController">
+
+    <div class="box__container">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="customerName">Customer Name</label>
+            </div>
+            <div class="box__col--35">
+                <input type="text" id="customerName" name="customerName" ng-model="controller.selectedCustomer.fullName" disabled>
+                <!--ui-select ng-model="controller.selectedCustomer" ng-disabled="controller.currentMode==controller.mode.VIEW" theme="bootstrap" title="Choose a employee" id="customerName" name="customerName">
+                    <ui-select-match placeholder="Search Customer...">{{$select.selected.fullName}}</ui-select-match>
+                    <ui-select-choices repeat="customer in controller.customerList | filter: $select.search">
+                        <div ng-bind-html="customer.fullName | highlight: $select.search"></div>
+                        <small>
+                            <span>ID: {{customer.idCustomer}}</span>
+                        </small>
+                    </ui-select-choices>
+                </ui-select-->
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="receiptNumber">Receipt No</label>
+            </div>
+            <div class="box__col--27">
+                <input type="text" id="receiptNumber" name="receiptNumber" placeholder="" ng-model="controller.transaction.receiptNo" disabled>
+            </div>
+        </div>
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="stockQuantity">Address</label>
+            </div>
+            <div class="box__col--35">
+                <input type="text" id="address" name="address" placeholder="" ng-model="controller.customerAddress" disabled>
+            </div>
+            <span class="box__col--5"></span>
+            <div class="box__col--13">
+                <label for="transactionDate">Date</label>
+            </div>
+            <div class="box__col--27">
+                <input type="datetime-local" id="transactionDate" name="transactionDate" ng-model="controller.transaction.transactionDate" ng-disabled="controller.currentMode==controller.mode.VIEW" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="box__container">
+        <div class="box__row">
+            <div class="box__col--20">
+                <h2>Summary</h2>
+            </div>
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--20">
+                <h2>Products Selected</h2>
+            </div>
+            <span class="box__col--40"></span>
+
+            <div class="box__col--10">
+                <label for="total">Total: </label>
+            </div>
+            <div class="box__col--30">
+                <input type="text" id="total" name="total" placeholder={{controller.totalTransactionAmount()}} disabled>
+            </div>
+
+        </div>
+
+        <div class="box__row">
+            <div class="box__col--100 table__container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="transactionDetail in controller.transaction.transactionDetails track by $index">
+                            <td>{{transactionDetail.product.description}}</td>
+                            <td>{{transactionDetail.rate | number: 2}}</td>
+                            <td>{{transactionDetail.quantity}}</td>
+                            <td>{{transactionDetail.rate*transactionDetail.quantity | number: 2}}</td>
+                            <td ng-hide="controller.currentMode==controller.mode.EDIT || controller.currentMode==controller.mode.VIEW"><a class="app__button--remove" ng-click="controller.removeTransactionDetail(transactionDetail)"><img src="~/Content/images/Actions/2x/ic_close_-1@2x.png" alt=""></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div ng-show="controller.isTransactionScheduled()">
+            <div class="box__row">
+                <div class="box__col--20">
+                    <h2>Frequency</h2>
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="col-100">
+                    <div class="border-section">
+                        <div class="row">
+                            <!--Occurs day 28 of every 1 month(s) effective 28/01/2021 until 28/06/2022 from 12:00 to 12:30-->
+                            {{controller.generateSummaryText()}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app__nav" ng-cloak>
+        <div class="app__nav-button-container">
+            <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER" ng-click="indexController.next()">
+                <a><span><img src="~/Content/images/Navigation/2x/ic_chevron_left_-2@2x.png" alt="" tabindex="3"></span>BACK</a>
+            </div>
+            <div class="app_nav-spacer"></div>
+            <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.next()">
+                <a>NEXT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+            </div>
+        </div>
+    </div>
+
+</div>

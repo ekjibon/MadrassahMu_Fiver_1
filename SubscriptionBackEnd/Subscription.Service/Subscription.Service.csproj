@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{672AF051-59FF-4B6E-A36B-27E11896DB47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Subscription.Service</RootNamespace>
+    <AssemblyName>Subscription.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\References\Project\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CoreWeb.Business.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\CoreWeb.Business.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Subscription.References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\References\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression">
+      <HintPath>..\..\References\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\ApplicationSignInManager.cs" />
+    <Compile Include="Authentication\ApplicationUserManager.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
+    <Compile Include="Authentication\IdentityEmailService.cs" />
+    <Compile Include="Authentication\IdentitySmsService.cs" />
+    <Compile Include="Extension\AddressService.cs" />
+    <Compile Include="Extension\BankReconciliationService.cs" />
+    <Compile Include="Extension\BaseService.cs" />
+    <Compile Include="Extension\CompanyService.cs" />
+    <Compile Include="Extension\ContactService.cs" />
+    <Compile Include="Extension\MailToSendService.cs" />
+    <Compile Include="Extension\ProductService.cs" />
+    <Compile Include="Extension\CustomerService.cs" />
+    <Compile Include="Extension\DocumentService.cs" />
+    <Compile Include="Extension\FileService.cs" />
+    <Compile Include="Extension\GenericWebConnectionService.cs" />
+    <Compile Include="Extension\GlobalVariableService.cs" />
+    <Compile Include="Extension\HostedDomainService.cs" />
+    <Compile Include="Extension\IServiceFactory.Extended.cs" />
+    <Compile Include="Extension\MailServerSettingService.cs" />
+    <Compile Include="Extension\ParameterService.cs" />
+    <Compile Include="Extension\PasswordGenerationService.cs" />
+    <Compile Include="Extension\PaymentService.cs" />
+    <Compile Include="Extension\PaymentDueSettingService.cs" />
+    <Compile Include="Extension\TemporaryTransactionOrderService.cs" />
+    <Compile Include="Extension\TransactionService.cs" />
+    <Compile Include="Extension\PaymentDueService.cs" />
+    <Compile Include="Extension\PdfService.cs" />
+    <Compile Include="Extension\PermissionService.cs" />
+    <Compile Include="Extension\PersonService.cs" />
+    <Compile Include="Extension\ReportService.cs" />
+    <Compile Include="Extension\RoleService.cs" />
+    <Compile Include="Extension\ServiceFactory.Extended.cs" />
+    <Compile Include="Extension\SignalRService.cs" />
+    <Compile Include="Extension\UserService.cs" />
+    <Compile Include="Extension\WorkflowService.cs" />
+    <Compile Include="Extension\ZipFileService.cs" />
+    <Compile Include="IServiceFactory.Generated.cs" />
+    <Compile Include="MEFLoader\BankStatementReaderInitializer.cs" />
+    <Compile Include="MEFLoader\ReportInitializer.cs" />
+    <Compile Include="MEFLoader\WorkflowTransitionActionInitializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="ServiceFactory.Generated.cs" />
+    <Compile Include="ServiceFactory.Implementation.Generated.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MailManager\MailManager.csproj">
+      <Project>{8e231d9c-6d40-4981-8b3c-64ea5acc389f}</Project>
+      <Name>MailManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Subscription.Business\Subscription.Business.csproj">
+      <Project>{20a14d2e-b29f-4814-8e03-18fa67d85b85}</Project>
+      <Name>Subscription.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Subscription.Data\Subscription.Data.csproj">
+      <Project>{42cfe21e-ccea-4a6f-a014-b226ef828448}</Project>
+      <Name>Subscription.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

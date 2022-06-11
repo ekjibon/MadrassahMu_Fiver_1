@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Credit Transaction Listing - Islamic Relief";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+
+}
+
+@Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+@Scripts.Render("~/bundles/transaction-sale-dto-return-type-js")
+
+<main class="" ng-controller="creditTransactionSaleListingController" ng-cloak style="display: grid; background-color: #F2F5F7; grid-template-columns: 30px;">
+    <div class="app__main js-app-main administration-product-listing">
+        <div class="box__container">
+            <div class="box__row">
+                <div class="box__col--40">
+                    <h2>Transaction</h2>
+                </div>
+
+                <span class="box__col--40"></span>
+
+                <div class="box__col--20">
+                    <div class="app__button--add" ng-click="controller.createNewTransaction()">
+                        <a><span><img src="~/Content/images/Actions/2x/ic_add_-2@2x.png" alt=""></span>Create New</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="box__col--75">
+                    <input type="text" placeholder="" name="search" class="form-control underline" ng-model="controller.paging.search" ng-enter="controller.loadTransactions()">
+                    <a class="app__button--search" ng-click="controller.loadTransactions()">
+                        Search
+                        <img src="/Content/images/Header-icons/2x/search-white2x.png" alt="">
+                    </a>
+                </div>
+
+                <span class="box__col--5"></span>
+
+                <div class="box__col--20">
+                    <div class="app__button--primary" ng-click="controller.showMyTransactionReport()">
+                        <a>My Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box__container">
+            <div class="box__row">
+                <div class="box__col--100 table__container">
+                    <table tr-ng-grid="" items="controller.gridTransactions"
+                           class="hover table-bordered border-top-0 border-bottom-0 table-pos"
+                           on-data-required-delay="500"
+                           current-page="controller.paging.pageIndex"
+                           page-items="controller.paging.pageSize"
+                           total-items="controller.paging.totalCount"
+                           order-by="controller.paging.sortColumn"
+                           order-by-reverse="controller.paging.sortByDesc"
+                           on-data-required="controller.loadTransactions(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                        <thead>
+                            <tr>
+                                <th field-name="receiptNo" display-name="Receipt No" enable-sorting="true" enable-filtering="false" display-align="right">
+                                </th>
+                                <th field-name="customer.fullName" display-name="Customer" enable-sorting="true" enable-filtering="false" display-align="right">
+                                </th>
+                                <th field-name="transactionDate" display-name="Date" enable-sorting="true" enable-filtering="false" display-align="right" display-format="date:'dd-MM-yyyy'">
+                                </th>
+                                <th>
+                                    <div class="tr-ng-title">
+                                        Amount Paid
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="tr-ng-title">
+                                        Amount Remaining
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="tr-ng-title">
+                                        Actions
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height:25px;">
+                                <td>
+                                    <div class="center">
+                                        {{gridItem.totalAmount | number:2}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="center">
+                                        {{controller.calculateRemaining(gridItem) | number:2}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span><a ng-click="controller.viewTransaction(gridItem,0)">View</a> | <a ng-click="controller.selectTransaction(gridItem,2)">Edit</a></span>
+                                    <!--button style="font-size: 0.60em;" ng-click="controller.selectTransaction(gridItem,2)">Select</button-->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <span> {{(controller.paging.pageSize * controller.paging.currentPageIndex) - controller.paging.pageSize | number}} - {{(controller.paging.pageSize * controller.paging.currentPageIndex)| number }} displayed , {{controller.paging.pageCount | number}} in total</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app__nav">
+        <div class="app__nav-button-container app-pagination">
+            <div class="table-pos-pagination dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                <ul uib-pagination
+                    total-items="controller.paging.pageCount"
+                    ng-model="controller.paging.currentPageIndex"
+                    max-size="controller.paging.pageSize"
+                    num-pages="numPages"
+                    class="pagination"
+                    boundary-links="true"
+                    rotate="false"
+                    ng-change="controller.loadTransactions()"></ul>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,4 @@
+﻿class bankReconciliationSortingPagingInfo extends sortingPagingInfoModel {
+
+
+}

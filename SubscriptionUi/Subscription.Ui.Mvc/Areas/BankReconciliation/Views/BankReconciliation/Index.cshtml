@@ -1,0 +1,388 @@
+﻿
+@using Subscription.Service
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    var id = ViewContext.RouteData.Values["id"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+}
+
+@section childController{
+
+    @Scripts.Render("~/bundles/transaction-sale-admin-essentials-js")
+    @Scripts.Render("~/bundles/transaction-sale-dto-return-type-js")
+    @Scripts.Render("~/bundles/subscription-schedule-transaction-js")
+    @Scripts.Render("~/bundles/subscription-essentials-js")
+    @Scripts.Render("~/bundles/subscription-select-customer-js")
+
+    @Scripts.Render("~/bundles/subscription-select-transaction-js")
+    @Scripts.Render("~/bundles/subscription-essentials-js")
+
+    @Scripts.Render("~/bundles/subscription-payment-js")
+
+    @Scripts.Render("~/bundles/subscription-summary-js")
+
+
+    @Scripts.Render("~/bundles/bank-reconciliation-essentials-js")
+    @Scripts.Render("~/bundles/bank-reconciliation-js")
+}
+
+
+<style>
+    .card {
+        background: transparent;
+    }
+
+    .card-body {
+        background: #fff;
+    }
+</style>
+
+<div ng-controller="bankReconciliationController" ng-cloak class="side-app custom-card" ng-init="controller.setInfo(@id,@mode)">
+    <div class="row" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.TO_LOAD_RAW_FILE">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group margin-horizontal-0">
+                <ui-select ng-model="controller.selectedBank"
+                           autofocus="true"
+                           theme="bootstrap"
+                           id="bank"
+                           class="ui-select-underline"
+                           name="bank">
+                    <ui-select-match placeholder="Type To Select Bank">
+                        {{$select.selected.description}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in controller.preloadedData.banks | filter: {description: $select.search}">
+                        <div ng-bind-html="::item.description | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button type="button" class="btn btn-wide btn-primary pull-right" ngf-select="controller.loadFile($files)">
+                Load File
+            </button>
+        </div>
+    </div>
+
+    <div class="row" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.RAW_FILE_PARSED">
+        <div class="col-md-3 offset-md-9">
+            <button type="button" class="btn btn-wide btn-primary pull-right" ng-click="controller.analyseFile()">
+                Analyse File
+            </button>
+        </div>
+    </div>
+
+    <div class="row margin-top-15" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.TO_LOAD_RAW_FILE">
+        <div class="col-md-12 quote-upload-box quote-upload-box-content"
+             ngf-drop
+             ngf-drag-over-class="{accept:'quote-drop-accept',reject:'quote-drop-reject',delay:50}"
+             ngf-change="controller.loadFile($files)">
+            <div class="col-md-12 margin-top-15 text-center quote-upload-item" ng-if="!mainController.isNullOrUndefined(controller.rateSheet)">
+                <div>
+                    <img ng-src="" />
+                </div>
+                <p>{{controller.documentName}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.RAW_FILE_PARSED">
+        <div class="col-md-12">
+            <table tr-ng-grid="" items="controller.fileContent.bankStatementStagingDetails"
+                   class="hover table-bordered border-top-0 border-bottom-0 table-pos bank-recon-table"
+                   selected-items="controller.selectedBankReconLineItem" selection-mode="SingleRow"
+                   enable-filtering="false" on-data-required-delay="500"
+                   current-page="controller.paging.pageIndex"
+                   page-items="controller.paging.pageSize"
+                   total-items="controller.paging.totalCount"
+                   order-by="controller.paging.sortColumn"
+                   order-by-reverse="controller.paging.sortByDesc"
+                   on-data-required="controller.gridLoad(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="tr-ng-title">
+                                Transaction Date
+                            </div>
+                        </th>
+                        <th field-name="branchCode" display-name="Reference" enable-filtering="false" enable-sorting="false">
+                        <th field-name="remarks" display-name="remarks" enable-filtering="false" enable-sorting="false">
+                        <th>
+                            <div class="tr-ng-title">
+                                Debit Amount
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Credit Amount
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Balance
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="center">
+                                {{gridItem.valueDate | date:'dd/MM/yyyy' }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.debitAmount  | number:2 }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.creditAmount  | number:2}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.balance  | number:0}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="row margin-top-15" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.BATCH_LOADED">
+        <div class="col-md-12">
+            <a class="btn btn-green margin-right-5 margin-bottom-25 pull-right"
+               href="#"
+               ng-click="controller.reconcileBankOrder()">
+                Process Online Orders
+                State : {{controller.bankStatementStaging.idBankReconOrderProcessState == controller.bankReconOrderProcessStateEnum.PROCESSED ? 'Processed': 'Awaiting Process' }}
+            </a>
+        </div>
+
+        <div class="card col-md-4" ng-repeat="batch in controller.bankStatementStagingDetailBatches">
+            <div class="card-body p-6" style="box-shadow:none;">
+                <p>Batch Number :{{batch.batchNumber}}</p>
+                <p>State :{{batch.bankStatementStagingState.description}}</p>
+                <p></p>
+                <a class="btn btn-green margin-right-5"
+                   href="#"
+                   ng-show="batch.bankStatementStagingState.idBankStatementStagingState == controller.bankStatementStagingStateEnum.AWAITING_PROCESS"
+                   ng-click="controller.analyseBatch(batch)">
+                    Analyse
+                </a>
+                <a class="btn btn-green margin-right-5"
+                   href="#"
+                   ng-show="batch.bankStatementStagingState.idBankStatementStagingState == controller.bankStatementStagingStateEnum.PROCESSING_DONE"
+                   ng-click="controller.printBatch(batch)">
+                    Print Batch
+                </a>
+                <a class="btn btn-green margin-right-5"
+                   href="#"
+                   ng-show="batch.bankStatementStagingState.idBankStatementStagingState == controller.bankStatementStagingStateEnum.PROCESSING_DONE"
+                   ng-click="controller.emailBatch(batch)">
+                    Email Batch
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row margin-top-15 bank-recon-analaysed" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.FILE_ANALYSED">
+        <div class="card" ng-repeat="processedFile in controller.processedFile">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <span class="card-title-icon background-icon-2">
+                        <i class="fa fa-tags"></i>
+                    </span>
+                    <span class="text">
+                        {{processedFile.type}}
+                    </span>
+                </h3>
+                <ul class="panel-heading-tabs border-light" id="panelTag">
+                    <li class="panel-tools">
+                        <ct-paneltool tool-collapse="tool-collapse"></ct-paneltool>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body p-6" uib-collapse="panelTag" ng-init="panelTag=false">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="margin-bottom-10">
+                            <table class="customs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Value Date</th>
+                                        <th>Branch Code</th>
+                                        <th>Remarks</th>
+                                        <th>Debit Amount</th>
+                                        <th>Credit Amount</th>
+                                        <th>Full Name</th>
+                                        <th style="max-width:42px;">Product</th>
+                                        <th>Amount</th>
+                                        <th class="small-width-column"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="margin-bottom-5">
+                            <table class="customs-table">
+                                <thead style="visibility:collapse">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th> </th>
+                                        <th> </th>
+                                        <th> </th>
+                                        <th style="max-width:42px;"></th>
+                                        <th></th>
+                                        <th class="small-width-column"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat-start="bankReconProcessFileViewModel in processedFile.data" id="#{{bankReconProcessFileViewModel.idBankStatementStagingDetail}}"
+                                        ng-class="{'error-background': !bankReconProcessFileViewModel.isValid && controller.hasSavedBeenRequested}">
+                                        <td>
+                                            {{bankReconProcessFileViewModel.valueDate | date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td>{{bankReconProcessFileViewModel.branchCode}}</td>
+                                        <td>
+                                            {{bankReconProcessFileViewModel.remarks}}
+                                        </td>
+                                        <td> {{bankReconProcessFileViewModel.debitAmount  | number:2}}</td>
+                                        <td>
+                                            {{bankReconProcessFileViewModel.creditAmount  | number:2}}
+                                        </td>
+                                        <td colspan="4">
+                                            <table class="customs-table-inner">
+                                                <thead style="visibility: collapse;">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="hit in bankReconProcessFileViewModel.hits">
+                                                        <td colspan="3">
+                                                            <table class="customs-table" style="width:100%">
+                                                                <tbody>
+                                                                    <tr ng-repeat="hitDetail in hit.hitDetails">
+                                                                        <td> <i class="fa fa-user"></i> {{hitDetail.customer}}</td>
+                                                                        <td>
+                                                                            <span ng-repeat="productDetail in hitDetail.details">
+                                                                                <br ng-if="$index > 0" />
+                                                                                <i class="fa fa-book"></i> {{productDetail.product}} (Rs {{productDetail.rate | number}} * {{productDetail.quantity}})
+                                                                            </span>
+                                                                        </td>
+                                                                        <td style="border-right:none;">
+                                                                            <span>
+                                                                                {{hitDetail.totalAmount  | number:0}}
+                                                                            </span>
+                                                                            <span>
+                                                                                <a class="btn btn-sm btn-green pull-right" style="padding: 0;margin: 0;min-width: 20px;" href="#"
+                                                                                   ng-click="controller.copyTransaction(hitDetail,processedFile.idHitType,bankReconProcessFileViewModel)">
+                                                                                    <i class="fa fa-copy"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td class="small-width-column" style="width:26px!important">
+                                                            <input type="checkbox" id="checkbox_{{bankReconProcessFileViewModel.idBankStatementStagingDetail}}" ng-model="hit.isSelected" style="margin: 0 auto;display: block;">
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr ng-if="bankReconProcessFileViewModel.hits.length ==0">
+                                                        <td colspan="4">
+                                                            No Proposal (Please add transaction manually)
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <table class="customs-table" style="width:100%;border-right: none">
+                                                                <tbody>
+                                                                    <tr ng-repeat="transactionEntity in bankReconProcessFileViewModel.transactions">
+                                                                        <td>
+                                                                            <i class="fa fa-user"></i> {{transactionEntity.transaction.customer.fullName}}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <span ng-repeat="transactionDetail in transactionEntity.transaction.transactionDetails">
+                                                                                <br ng-if="$index > 0" />
+                                                                                <i class="fa fa-book"></i> {{transactionDetail.product.description}} (Rs {{transactionDetail.rate | number}} * {{transactionDetail.quantity}})
+                                                                            </span>
+                                                                        </td>
+
+                                                                        <td style="border-right: 1px solid black!important;">
+                                                                            {{transactionEntity.transaction.totalAmount  | number:0}}
+                                                                        </td>
+
+                                                                        <td class="small-width-column" style="max-width:10px;border-color: white;">
+                                                                            <a class="btn btn-sm btn-red" style="padding: 0;margin: 0;min-width: 20px;" href="#" ng-click="controller.removeTransaction(processedFile.idHitType,bankReconProcessFileViewModel.idBankStatementStagingDetail,transactionEntity.transaction.idLocalTransaction)"><i class="ti-trash"></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-repeat-end ng-class="{'error-background': !bankReconProcessFileViewModel.isValid && controller.hasSavedBeenRequested}">
+                                        <td colspan="9">
+                                            <div class="float-left error" ng-if="!controller.isProcessedFileLineItemValid(bankReconProcessFileViewModel) && controller.hasSavedBeenRequested">
+                                                <span ng-repeat="error in bankReconProcessFileViewModel.validationErrors">{{error}}</span>
+                                            </div>
+                                            <a class="btn btn-sm pull-right btn-green margin-right-5"
+                                               href="#"
+                                               ng-click="controller.addNewTransaction(processedFile.idHitType ,bankReconProcessFileViewModel.idBankStatementStagingDetail)">
+                                                <i class="ti-money">Add Transaction</i>
+                                            </a>
+                                            <a class="btn btn-sm pull-right btn-red margin-right-5"
+                                               href="#"
+                                               ng-click="controller.removeTransactionFromFile(processedFile ,bankReconProcessFileViewModel.idBankStatementStagingDetail)">
+                                                <i class="ti-trash">Remove Transaction</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-15" ng-if="controller.screenState == controller.bankReconciliationScreenStateEnum.FILE_ANALYSED">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-wide btn-primary pull-right margin-bottom-15" ng-click="controller.saveBankRecon()">
+                Save
+            </button>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,52 @@
+﻿<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Add Installment</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="row form-item">
+            <div class="col-50">
+                <div class="col-30">
+                    <label for="installmentNo">Generate</label>
+                </div>
+                <div class="col-30">
+                    <input type="number" id="installmentNo" name="installmentNo" placeholder="2" ng-model="modalController.installment.noOfInstallment">
+                </div>
+                <div class="col-40" style="padding-left: 10px;">
+                    <label for="installmentNo">Installments</label>
+                </div>
+            </div>
+        </div>
+        <div class="row form-item">
+            <div class="col-50">
+                <div class="col-30">
+                    <label for="startDate">Start Date</label>
+                </div>
+                <div class="col-60">
+                    <input type="date" id="startDate" name="startDate" placeholder="" ng-model="modalController.installment.startDate">
+                </div>
+            </div>
+        </div>
+        <div class="row form-item">
+            <div class="col-50">
+                <div class="col-30">
+                    <label for="frequencyNumber">Every</label>
+                </div>
+                <div class="col-30">
+                    <input type="number" id="frequencyNumber" name="frequencyNumber" placeholder="2" ng-model="modalController.installment.frequencyNumber">
+                </div>
+                <div class="col-30">
+                    <select id="frequency" name="frequency" ng-model="modalController.installment.frequency">
+                        <option value="day">Day(s)</option>
+                        <option value="week">Week</option>
+                        <option value="month">Month</option>
+                        <option value="year">Year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modalController.onOk()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="modalController.cancel()">Cancel</button>
+    </div>
+</div>

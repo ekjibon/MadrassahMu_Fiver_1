@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<div ng-controller="administrationNewProductController">
+    <div class="box__container add-product">
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="name">Item Name/ Number</label>
+            </div>
+            <div class="box__col--80">
+                <input type="text" id="name" name="name" placeholder="" ng-model="controller.product.name">
+            </div>
+        </div>
+
+        <div class="box__row ">
+            <div class="box__col--20">
+                <label for="paymentMethod">Product Type</label>
+            </div>
+            <div class="box__col--25">
+                <div class="dropdown__container">
+                    <select ng-model="controller.product.idProductType" ng-options="opt.id as opt.description for opt in controller.productTypes">
+                    </select>
+                </div>
+            </div>
+            <span class="box__col--10"></span>
+            <div class="box__col--20">
+                <label for="paymentMethod">Account</label>
+            </div>
+            <div class="box__col--25">
+                <div class="dropdown__container">
+                    <select ng-model="controller.product.idTransactionAccount" ng-options="opt.id as opt.description for opt in controller.paymentAccounts">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="box__row product-remarks">
+            <div class="box__col--20 label-col">
+                <label for="description">Description</label>
+            </div>
+            <div class="box__col--80">
+                <textarea id="description" name="description" placeholder="Description..." ng-model="controller.product.description"></textarea>
+            </div>
+        </div>
+
+        <toaster-container></toaster-container>
+        <div class="box__row">
+            <div class="box__col--20">
+                <label for="rate">Rate</label>
+            </div>
+            <div class="box__col--45">
+                <input type="number" id="rate" name="rate" placeholder="" ng-model="controller.product.rate">
+            </div>
+        </div>
+    </div>
+</div>

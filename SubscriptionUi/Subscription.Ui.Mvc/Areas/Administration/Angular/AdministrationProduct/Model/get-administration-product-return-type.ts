@@ -1,0 +1,3 @@
+﻿class getAdministrationProductReturnType{
+    product: productModel;
+}

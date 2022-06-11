@@ -1,0 +1,3 @@
+﻿class getPaymentDueDetailDto {
+    idTransaction: number;
+}

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    var token = ViewData["token"] == null ? "" : ViewData["token"];
+    var action = ViewData["action"] == null ? -1 : ViewData["action"];
+}
+
+@Scripts.Render("~/bundles/public-security-base-script")
+@Scripts.Render("~/bundles/public-security-script")
+
+<script>
+    setTimeout(function () {
+        $(".js-grid-container").removeClass("sidenav-active");
+    }, 1000);
+    $(".js-grid-container").removeClass("sidenav-active");
+</script>
+
+
+<div class="app__authentication page-content z-index-10" ng-controller="authenticationController" ng-init="controller.setInfo('@token',@action,'@TempData["ErrorMessage"]')">
+
+    <div class="box__container">
+        <div class="box__row">
+            <div class="box__col--40">
+                <img src="@Url.Content("~/",true)Images/sign-in-up-logo-only.png" alt="sing in" alt="Alternate Text" />
+            </div>
+            <div class="box__col--60">
+
+                
+
+                <form name="authForm" novalidate>
+                    <div ng-if="controller.authScreenState == controller.authScreenStateEnum.LOGIN">
+                        <div class="sing-in-form-area">
+
+                            <div class="box__row">
+                                <div class="box__col--100">
+                                    <h2>Sign In</h2>
+                                </div>
+                            </div>
+
+                            <div class="box__row">
+                                <div class="box__col--40">
+                                    <label for="loginEmail">Email</label>
+                                </div>
+                                <div class="box__col--60">
+                                    <input type="text" placeholder="" ng-model="controller.authDto.email" name="loginEmail" id="loginEmail">
+                                </div>
+                            </div>
+
+                            <div class="box__row">
+                                <div class="box__col--40">
+                                    <label for="loginPassword">Password</label>
+                                </div>
+                                <div class="box__col--60">
+                                    <input type="password" id="loginPassword" placeholder="" ng-model="controller.authDto.password" name="loginPassword">
+                                </div>
+                            </div>
+
+                            <div class="box__row">
+                                <div class="box__col--40">
+                                    <label for="workstationId">Workstation Id</label>
+                                </div>
+                                <div class="box__col--60">
+                                    <input type="text" id="workstationId" placeholder="Workstation Id" ng-model="controller.IdWorkstation" name="workstationId">
+                                </div>
+                            </div>
+
+                            <div class="box__row">
+                                <div class="box__col--100">
+                                    <div class="app__button--add" ng-click="controller.login(controller.baseController.authenticationTypeEnum.IDENTITY)">
+                                        <a>Sign in</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <toaster-container></toaster-container>
+                            <!--div class="box__row">
+        <div class="box__col--100">
+            <p class="text"> <a href="#" ng-click="controller.authScreenToggle(controller.authScreenStateEnum.FORGOTPASSWORD)">Forgot Password?</a></p>
+        </div>
+    </div-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

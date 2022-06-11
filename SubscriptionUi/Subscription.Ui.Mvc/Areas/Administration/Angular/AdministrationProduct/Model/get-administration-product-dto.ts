@@ -1,0 +1,3 @@
+﻿class getAdministrationProductDto{
+    idProduct: number;
+}

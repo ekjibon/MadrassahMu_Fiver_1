@@ -1,0 +1,8 @@
+﻿class ##{{camelCaseEntity}}##WebService extends baseWebService<##{{camelCaseEntity}}##Model> {
+    constructor( genericWebConnectionService) {
+        var saveUrl: string = '##{{baseArea}}##/##{{entityName}}##/Add##{{entityName}}##';
+        var loadUrl: string = '##{{baseArea}}##/##{{entityName}}##/LoadList';
+        var deleteUrl: string = '##{{baseArea}}##/##{{entityName}}##/Delete##{{entityName}}##';
+        super(genericWebConnectionService, saveUrl, loadUrl, deleteUrl)
+    }
+}

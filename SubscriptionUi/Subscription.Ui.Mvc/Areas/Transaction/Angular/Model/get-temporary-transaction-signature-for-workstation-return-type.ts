@@ -1,0 +1,3 @@
+﻿class getTemporaryTransactionSignatureForWorkstationReturnType {
+    temporaryTransaction: temporaryTransactionOrderModel;
+}

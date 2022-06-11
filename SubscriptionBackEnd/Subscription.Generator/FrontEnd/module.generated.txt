@@ -1,0 +1,15 @@
+﻿var ##{{camelCaseEntity}}##Module = angular.module("##{{camelCaseEntity}}##Module", []);
+
+##{{camelCaseEntity}}##Module.controller("##{{camelCaseEntity}}##Controller"
+    , ["$scope"
+        , "##{{camelCaseEntity}}##WebService"
+        , ##{{camelCaseEntity}}##Controller
+    ]);
+
+
+##{{camelCaseEntity}}##Module.service("##{{camelCaseEntity}}##WebService"
+    , [ "genericWebConnectionService"
+        , "globalVariableFactory"
+        , ##{{camelCaseEntity}}##WebService]);
+
+baseModule.requires.push("##{{camelCaseEntity}}##Module");  

@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    ViewBag.Title = "Schedule Details";
+}
+
+<body ng-app="paymentApp" ng-controller="paymentController">
+    <div class="container">
+        <div class="row">
+            <h2>Schedule Details</h2>
+            <div>
+                <h3>Customer</h3>
+            </div>
+            <div class="border-section">
+                <div class="row form-item">
+                    <div class="col-50">
+                        <div class="col-30">
+                            <label for="customerName">Customer Name</label>
+                        </div>
+                        <div class="col-60">
+                            <input type="text" id="customerName" name="customerName" placeholder="Haashim Joosub">
+                        </div>
+                    </div>
+                    <div class="col-50">
+                        <div class="col-30">
+                            <label for="tel">Tel:</label>
+                        </div>
+                        <div class="col-60">
+                            <input type="tel" id="tel" name="tel" placeholder="5555 5555" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-50">
+                        <div class="col-30">
+                            <label for="address">Address</label>
+                        </div>
+                        <div class="col-60">
+                            <input type="text" id="address" name="address" placeholder="Loss Lane, Rose Hill" disabled>
+                        </div>
+                    </div>
+                    <div class="col-50">
+                        <div class="col-30">
+                            <label for="email">Email:</label>
+                        </div>
+                        <div class="col-60">
+                            <input type="text" id="email" name="email" placeholder="hashim@joosub.com" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-between">
+                <h3>Products Selected</h3>
+                <div class="row custom-spacing">
+                    <div class="col-20">
+                        <label for="total">Total</label>
+                    </div>
+                    <div class="col-80">
+                        <input type="number" id="total" name="total" placeholder="2,500" disabled>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Qty</th>
+                    <th>Sub Total</th>
+                </tr>
+                <tr>
+                    <td>Sadaqa Sudan</td>
+                    <td>5,000</td>
+                    <td>1</td>
+                    <td>5,000</td>
+                </tr>
+                <tr>
+                    <td>Sadaqa Sudan</td>
+                    <td>5,000</td>
+                    <td>1</td>
+                    <td>5,000</td>
+                </tr>
+                <tr>
+                    <td>Sadaqa Sudan</td>
+                    <td>5,000</td>
+                    <td>1</td>
+                    <td>5,000</td>
+                </tr>
+                <tr>
+                    <td>Sadaqa Sudan</td>
+                    <td>5,000</td>
+                    <td>1</td>
+                    <td>5,000</td>
+                </tr>
+            </table>
+            <div>
+                <h3>Frequency</h3>
+            </div>
+            <div class="border-section">
+                <div class="row">
+                    <div class="col-80">
+                        Occurs day 28 of every 1 month(s) effective 28/01/2021 until 28/06/2022 from 12:00 to 12:30
+                    </div>
+                </div>
+            </div>
+            <div class="upper-spacing">
+                <button class="right">
+                    Payments
+                </button>
+                <button class="right">
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+    <script src="js/angular/angular.js"></script>
+    <script src="js/payment-controller.js"></script>
+</body>

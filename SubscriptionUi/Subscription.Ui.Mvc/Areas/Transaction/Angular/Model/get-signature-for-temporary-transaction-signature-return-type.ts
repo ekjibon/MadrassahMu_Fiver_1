@@ -1,0 +1,3 @@
+﻿class getSignatureForTemporaryTransactionSignatureReturnType {
+    signatureDocument: documentModel;
+}

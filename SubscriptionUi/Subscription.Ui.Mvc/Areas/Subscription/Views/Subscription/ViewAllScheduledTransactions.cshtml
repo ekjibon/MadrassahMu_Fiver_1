@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    ViewBag.Title = "Islamic Relief Mauritius";
+
+    var id = ViewContext.RouteData.Values["id"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+
+}
+
+
+@Scripts.Render("~/bundles/subscription-schedule-transaction-js")
+@Scripts.Render("~/bundles/subscription-essentials-js")
+@Scripts.Render("~/bundles/view-all-scheduled-transactions-js")
+
+<main class="main" ng-controller="viewAllScheduledTransactionController" ng-init="controller.setInfo(@id,@mode)" ng-cloak>
+    <div class="app__step">
+        <ul>
+            <li>
+                <p class="app__step-number">1.</p>
+                <p class="app__step-name"><a class="form-item">View All Scheduled Transactions</a></p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="app__main js-app-main view-all-scheduled-transaction">
+        <div class="box__container">
+            <div class="box__row">
+                <div class="box__col--40">
+                    <h2>View Scheduled Transactions</h2>
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="box__col--50">
+                    <input type="text" placeholder="" name="search" class="form-control underline" ng-model="controller.paging.search" ng-enter="controller.loadScheduledTransactions()" ng-change="controller.loadScheduledTransactions()">
+                    <a class="app__button--search" ng-click="controller.loadScheduledTransactions()">Search<img src="~/Content/images/Header-icons/2x/search-white2x.png" alt=""></a>
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="box__col--40">
+                    <h2>Filter by:</h2>
+                </div>
+            </div>
+
+            <div class="box__row">
+                <div class="box__col--20">
+                    <label for="customerName">Customer Name</label>
+                </div>
+                <div class="box__col--30">
+                    <input type="text" id="customerName" name="customerName" placeholder="Haashim Joosub">
+                </div>
+
+                <span class="box__col--5"></span>
+
+                <div class="box__col--18">
+                    <label for="productName">Product Name</label>
+                </div>
+                <div class="box__col--27">
+                    <input type="text" id="productName" name="productName" placeholder="Orphan">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box__container">
+            <div class="box__row">
+                <div class="box__col--100 table__container">
+                    <table tr-ng-grid="" items="controller.scheduledTransactions"
+                           class="hover table-bordered border-top-0 border-bottom-0 table-pos"
+                           enable-filtering="false" on-data-required-delay="500"
+                           current-page="controller.paging.pageIndex"
+                           page-items="controller.paging.pageSize"
+                           total-items="controller.paging.totalCount"
+                           order-by="controller.paging.sortColumn"
+                           order-by-reverse="controller.paging.sortByDesc"
+                           on-data-required="controller.loadScheduledTransactions(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                        <thead>
+                            <tr>
+                                <th><div class="tr-ng-title">Transaction ID</div></th>
+                                <th><div class="tr-ng-title">Customer</div></th>
+                                <th><div class="tr-ng-title">Amount</div></th>
+                                <th><div class="tr-ng-title">Product</div></th>
+                                <th><div class="tr-ng-title">Frequency</div></th>
+                                <th><div class="tr-ng-title">Actions</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="center">
+                                        {{gridItem.idTransaction}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="center">
+                                        {{gridItem.customer.fullName}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="center">
+                                        {{gridItem.totalAmount | number:2}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li ng-repeat="transactionDetail in gridItem.transactionDetails">
+                                            {{transactionDetail.description}}
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li ng-repeat="scheduleSetting in gridItem.scheduleSettings">
+                                            Frequency: {{scheduleSetting.scheduleSetting}} <br />
+                                            Start Date: {{scheduleSetting.startDate | date:'dd/MM/yyyy'}} <br />
+                                            End Date: {{scheduleSetting.endDate | date:'dd/MM/yyyy'}} <br />
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <button style="font-size: 0.60em;" ng-click="controller.selectTransaction(gridItem,2)">Select</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <span> {{(controller.paging.pageSize * controller.paging.currentPageIndex) - controller.paging.pageSize | number}} - {{(controller.paging.pageSize * controller.paging.currentPageIndex)| number }} displayed , {{controller.paging.pageCount | number}} in total</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app__nav">
+        <div class="app__nav-button-container app-pagination">
+            <div class="table-pos-pagination dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                <ul uib-pagination
+                    total-items="controller.paging.pageCount"
+                    ng-model="controller.paging.currentPageIndex"
+                    max-size="controller.paging.pageSize"
+                    num-pages="numPages"
+                    class="pagination"
+                    boundary-links="true"
+                    rotate="false"
+                    ng-change="controller.loadScheduledTransactions()"></ul>
+            </div>
+        </div>
+    </div>
+</main>

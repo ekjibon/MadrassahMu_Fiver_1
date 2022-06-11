@@ -1,0 +1,3 @@
+﻿class saveTemporaryTransactionDto {
+    temporaryTransaction: temporaryTransactionOrderModel
+}

@@ -1,0 +1,3 @@
+﻿class saveTemporaryTransactionReturnType {
+    temporaryTransaction: temporaryTransactionOrderModel
+}

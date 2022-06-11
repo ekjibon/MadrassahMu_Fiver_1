@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Create New Product - Islamic Relief Mauritius";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+
+    var idProduct = ViewContext.RouteData.Values["id"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+    var subSection = ViewContext.RouteData.Values["subSection"] ?? true;
+
+}
+
+@Scripts.Render("~/bundles/administration-product-essentials-js")
+@Scripts.Render("~/bundles/administration-product-js")
+<main class="main app__step--empty select-transaction" ng-controller="administrationProductController" ng-init="controller.setInfo(@idProduct,@mode)">
+
+    <div class="app__main js-app-main">
+        @{Html.RenderAction("AdministrationNewProduct", "AdministrationProduct", new { area = "Administration" });}
+    </div>
+    <div class="app__nav">
+        <div class="app__nav-button-container">
+            <div class="app_nav-spacer"></div>
+            <div class="app__button app__button--nav" ng-click="controller.saveProduct()">
+                <a>Save<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+            </div>
+        </div>
+    </div> <toaster-container></toaster-container>
+</main>
+

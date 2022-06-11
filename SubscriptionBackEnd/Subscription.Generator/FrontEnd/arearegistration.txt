@@ -1,0 +1,34 @@
+using CoreWeb.Ui.Common.Mvc;
+using System.Web.Mvc;
+using System.Web.Optimization;
+
+namespace TheHub.Ui.Mvc.Areas.##{{baseArea}}##
+{
+    public partial class ##{{entityName}}##AreaRegistration : AreaRegistration 
+    {
+        public static BundleCollection bundles;
+        public static AreaRegistrationContext areaRegistrationContext;
+        public override string AreaName 
+        {
+            get 
+            {
+                return "##{{entityName}}##";
+            }
+        }
+
+        public override void RegisterArea(AreaRegistrationContext context) 
+        {
+            context.MapRoute(
+                "##{{entityName}}##_default",
+                "##{{entityName}}##/{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional }
+            );
+            areaRegistrationContext = context;
+            RegisterAreaExtension();
+
+            AreaRegistrationState state = (AreaRegistrationState)context.State;
+            bundles = state.BundleCollection;
+            RegisterBundlesExtension();
+        }
+    }
+}

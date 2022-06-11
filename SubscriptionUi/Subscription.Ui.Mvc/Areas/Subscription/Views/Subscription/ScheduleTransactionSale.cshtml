@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+    ViewBag.Title = "Islamic Relief Mauritius";
+
+    var idTransaction = ViewContext.RouteData.Values["idTransaction"] ?? -1;
+    var idTransactionDue = ViewContext.RouteData.Values["idTransactionDue"] ?? -1;
+    var mode = ViewContext.RouteData.Values["mode"] ?? 1;
+    var subSection = ViewContext.RouteData.Values["subSection"] ?? true;
+
+}
+
+@Scripts.Render("~/bundles/subscription-schedule-transaction-js")
+@Scripts.Render("~/bundles/subscription-essentials-js")
+@Scripts.Render("~/bundles/subscription-select-customer-js")
+
+
+<main class="main" ng-controller="scheduleTransactionController" ng-init="indexController.setInfo(@idTransaction,@idTransactionDue,@mode)" ng-cloak>
+    <!-- main start -->
+    <div class="app__step">
+        <ul>
+            <li>
+                <p class="app__step-number">1.</p>
+                <p class="app__step-name"> <a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER}" ng-click="indexController.selectMenu(indexController.menuEnum.SELECT_CUSTOMER)">Select Customer</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">2.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SELECT_TRANSACTION}" ng-click="indexController.selectMenu(indexController.menuEnum.SELECT_TRANSACTION)">Select Transaction</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">3.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.DEFINE_FREQUENCY}" ng-click="indexController.selectMenu(indexController.menuEnum.DEFINE_FREQUENCY)">Define Frequency</a></p>
+            </li>
+            <li>
+                <p class="app__step-number">4.</p>
+                <p class="app__step-name"><a class="form-item" ng-class="{'bold': indexController.selectedMenu==indexController.menuEnum.SUMMARY}" ng-click="indexController.selectMenu(indexController.menuEnum.SUMMARY)">Summary</a></p>
+            </li>
+        </ul>
+    </div>
+    <div class="app__main js-app-main schedule-transaction">
+        <form name="scheduledTransactionForm" novalidate>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER">
+                @{Html.RenderAction("SelectCustomer", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SELECT_TRANSACTION">
+                @{Html.RenderAction("SelectTransaction", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.DEFINE_FREQUENCY">
+                @{Html.RenderAction("DefineFrequency", "Subscription", new { area = "Subscription" });}
+            </div>
+            <div ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY">
+                @{Html.RenderAction("Summary", "Subscription", new { area = "Subscription" });}
+            </div>
+        </form>
+    </div>
+
+    <div class="app__nav">
+        <div class="app__nav-button-container">
+            <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SELECT_CUSTOMER" ng-click="indexController.back()">
+                <a><span><img src="~/Content/images/Navigation/2x/ic_chevron_left_-2@2x.png" alt=""></span>BACK</a>
+            </div>
+            <div class="app_nav-spacer"></div>
+            <div class="app__button app__button--nav" ng-hide="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.next()">
+                <a>NEXT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+            </div>
+            <div class="app__button app__button--nav" ng-show="indexController.selectedMenu==indexController.menuEnum.SUMMARY" ng-click="indexController.submit()">
+                <a>SUBMIT<span><img src="~/Content/images/Navigation/2x/ic_chevron_right_-5@2x.png" alt=""></span></a>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- main end -->

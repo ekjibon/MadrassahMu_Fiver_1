@@ -1,0 +1,3 @@
+﻿class getAdministrationCustomerDto{
+    idCustomer: number;
+}

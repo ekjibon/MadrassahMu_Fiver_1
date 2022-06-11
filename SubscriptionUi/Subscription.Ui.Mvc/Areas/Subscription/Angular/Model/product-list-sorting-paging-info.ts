@@ -1,0 +1,3 @@
+﻿class productListSortingPagingInfo extends sortingPagingInfoModel {
+    
+}

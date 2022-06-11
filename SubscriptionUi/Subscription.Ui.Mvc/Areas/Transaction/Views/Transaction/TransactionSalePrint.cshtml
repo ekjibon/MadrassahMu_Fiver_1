@@ -1,0 +1,202 @@
+﻿@using Subscription.Service;
+@model Subscription.Business.ReturnType.GetTransactionSaleForPrintReturnType
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @Styles.Render("~/bundles/bootstrap-css")
+    @Styles.Render("~/bundles/thehub-css")
+    <style>
+        @@page {
+            margin: 0;
+            size: A5 landscape;
+        }
+
+        body {
+            margin: 0
+        }
+
+        .sheet {
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+
+        /** Paper sizes **/
+        body.A5.landscape .sheet {
+            width: 210mm;
+            height: 167mm
+        }
+
+        /** Padding area **/
+        .sheet.padding-10mm {
+            padding: 10mm
+        }
+
+        /** For screen preview **/
+        @@media screen {
+            body {
+                background: #e0e0e0
+            }
+
+            .sheet {
+                background: white;
+                box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+                margin: 5mm;
+            }
+        }
+
+        /** Fix for Chrome issue #273306 **/
+        @@media print {
+            body.A4, body.A5.landscape {
+                width: 210mm
+            }
+        }
+    </style>
+</head>
+
+<body class="A5 landscape">
+    <div class="container sheet padding-10mm">
+        <div class="row pos-print-row">
+            <div class="pos-print-col-md-6">
+                <div class="pos-print-left-header-section">
+                    <div class="pos-print-header-logo">
+                        <img src="@Url.Content("~")Images/logo-islamic-relief.png" />
+                    </div>
+                    <div class="pos-print-header-text">
+                        <h2>ISLAMIC RELIEF</h2>
+                        <p>Pearl House, 2nd Floor, Room 201</p>
+                        <p>16 Sir Virgil Naz Street, Port Louis</p>
+                        <p>+230 260 23 49 | +230 260 23 50</p>
+                        <p>irelief@intnet.mu   www.islamic-relief.mu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pos-print-col-md-6">
+                <div class="pos-print-right-header-section">
+                    <h2>RECEIPT</h2>
+                    <div class="pos-print-header-container">
+                        <span class="pos-print-value">@Model.ReceiptNo</span>
+                        <span class="pos-print-text">RECEIPT NO</span>
+                    </div>
+                    <div class="pos-print-header-container">
+                        <span class="pos-print-value">@Model.TransactionDate</span>
+                        <span class="pos-print-text">DATE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pos-print-row">
+            <div class="pos-print-col-md-5">
+                <div class="pos-print-left-header-section">
+                    <div class="pos-print-rectangle-text">
+                        <div class="pos-print-rectangle-header">
+                            <span>Received from Mr</span>
+                        </div>
+                        <div class="pos-print-rectangle-body">
+
+                            <span>@Model.CustomerName<br />@Model.Address</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos-print-col-md-7">
+                <table class="table table-bordered pos-print-payment-method">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Cheque No.
+                            </th>
+                            <th scope="col">
+                                Payment Method
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Model.ChequeNo
+                            </td>
+                            <td>
+                                @Model.PaymentMethod
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="row pos-print-row">
+            <div class="pos-print-col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ITEM</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col">QUANTITY</th>
+                            <th scope="col">RATE</th>
+                            <th scope="col">AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TransactionDetails)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Rate</td>
+                                <td>@item.Amount</td>
+                            </tr>
+                        }
+
+
+                        <tr>
+                            <td colspan="4" class="total-text">TOTAL</td>
+                            <td>@Model.Total</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row pos-print-row">
+            <div class="pos-print-col-md-3">
+                <div class="pos-print-footer-quote">
+                    <p>"Money never decrease because of Sadaqa" Hadiths</p>
+                </div>
+            </div>
+            <div class="pos-print-col-md-3">
+                <div class="pos-print-footer-acc">
+                    <p>Bank Accounts</p>
+                    <p>Barclays Bank: 15-7002120</p>
+                    <p>State Bank Mauritius: 62010100069767</p>
+                </div>
+
+            </div>
+            <div class="pos-print-col-md-3">
+                <div class="pos-print-footer-sig">
+                    <span class="pos-print-name-sig"><br /><br /></span>
+                    <span class="pos-print-sig-text">Received by</span>
+                </div>
+            </div>
+            <div class="pos-print-col-md-3">
+                <div class="pos-print-footer-sig">
+                    <span class="pos-print-name-sig"><br /><br /></span>
+                    <span class="pos-print-sig-text">Donor's</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

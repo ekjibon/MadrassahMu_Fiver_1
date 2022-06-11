@@ -1,0 +1,135 @@
+﻿
+@using Subscription.Service
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+
+}
+
+@section childController{
+    @Scripts.Render("~/bundles/bank-reconciliation-essentials-js")
+    @Scripts.Render("~/bundles/bank-reconciliation-listing-js")
+}
+
+<div ng-controller="bankReconciliationListingController" ng-cloak class="side-app custom-card">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-btn standard-buttons margin-top-10 btn-pos-listing-add">
+                <button type="button" class="main-btn standard-two sm-button create-new-btn" ng-click="controller.addEditItem(null,controller.baseController.modeEnums.ADD)">
+                    Create new
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-15">
+        <div class="col-md-6 search-input">
+            <input type="text" placeholder="" name="search" class="form-control underline" ng-model="controller.paging.search" ng-enter="controller.gridLoad()" ng-change="controller.gridLoad()">
+        </div>
+        <div class="col-md-3 standard-buttons search-button">
+            <button type="button" class="main-btn standard-two sm-button create-new-btn" ng-click="controller.gridLoad()">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <div class="row margin-top-15">
+        <div class="col-md-12 table-scroll">
+            <table tr-ng-grid="" items="controller.bankStagingStatements"
+                   class="hover table-bordered border-top-0 border-bottom-0 table-pos bank-recon-table"
+                   selected-items="controller.selectedCustomer" selection-mode="SingleRow"
+                   enable-filtering="false" on-data-required-delay="500"
+                   current-page="controller.paging.pageIndex"
+                   page-items="controller.paging.pageSize"
+                   total-items="controller.paging.totalCount"
+                   order-by="controller.paging.sortColumn"
+                   order-by-reverse="controller.paging.sortByDesc"
+                   on-data-required="controller.gridLoad(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="tr-ng-title">
+                                Account
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                From
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                To
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                UploadDate
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Count
+                            </div>
+                        </th>
+                        <th>
+                            <div class="tr-ng-title">
+                                Actions
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="center">
+                                {{gridItem.account}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.bankStatementDateFrom | date:'dd/MM/yyyy'}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.bankStatementDateTo |  date:'dd/MM/yyyy'}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.uploadDate |  date:'dd/MM/yyyy'}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                {{gridItem.totalTransaction }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                <a class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Edit" ng-click="controller.addEditItem(gridItem,controller.baseController.modeEnums.EDIT)">Edit</i></a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <span> {{(controller.paging.pageSize * controller.paging.currentPageIndex) - controller.paging.pageSize | number}} - {{(controller.paging.pageSize * controller.paging.currentPageIndex)| number }} displayed , {{controller.paging.pageCount | number}} in total</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="table-pos-pagination dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul uib-pagination
+                total-items="controller.paging.pageCount"
+                ng-model="controller.paging.currentPageIndex"
+                max-size="controller.paging.pageSize"
+                num-pages="numPages"
+                class="pagination" boundary-links="true" rotate="false" ng-change="controller.gridLoad()"></ul>
+        </div>
+    </div>
+</div>

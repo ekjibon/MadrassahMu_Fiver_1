@@ -1,0 +1,81 @@
+﻿@{ Layout = null; }
+<div class="app__modal app__modal--search-result">
+    <div class="modal-header">
+        <div class="box__row">
+            <div class="box__col--90">
+                <h3 class="modal-title" id="modal-title">Product Search</h3>
+            </div>
+            <div class="box__col--10 app__modal-close">
+                <a class="app__button--remove" ng-click="controller.cancel()"><img src="~/Content/images/Actions/2x/ic_close_24px@2x.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+        <div class="box__row app__modal-search">
+            <div class="box__col--100">
+                <input type="text" placeholder="" name="search" class="form-control underline" ng-model="controller.paging.search" ng-enter="controller.getProductList()" ng-change="controller.getProductList()">
+                <a class="app__button--search" ng-click="">Search<img src="~/Content/images/Header-icons/2x/search-white2x.png" alt=""></a>
+            </div>
+        </div>
+        <div class="box__row">
+            <div class="box__col--100 table__container table__search-result">
+                <table tr-ng-grid="" items="controller.productList"
+                       class="hover table-bordered border-top-0 border-bottom-0 table-pos"
+                       selection-mode="SingleRow"
+                       enable-filtering="false" on-data-required-delay="500"
+                       current-page="controller.paging.pageIndex"
+                       page-items="controller.paging.pageSize"
+                       total-items="controller.paging.totalCount"
+                       order-by="controller.paging.sortColumn"
+                       order-by-reverse="controller.paging.sortByDesc"
+                       on-data-required="">
+                    <!--controller.gridLoad(currentPage, pageItems, filterBy, filterByFields, orderBy, orderByReverse)-->
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="tr-ng-title">
+                                    Select Product
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td ng-click="controller.selectProduct(gridItem)">
+                                <div class="table__search-result--item">
+                                    Id: {{gridItem.idProduct}}
+                                </div>
+                                <div class="table__search-result--item">
+                                    {{gridItem.description}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <span> {{(controller.paging.pageSize * controller.paging.currentPageIndex) - controller.paging.pageSize | number}} - {{(controller.paging.pageSize * controller.paging.currentPageIndex)| number }} displayed , {{controller.paging.pageCount | number}} in total</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>        
+    </div>
+
+    <div class="app__nav-button-container app-pagination">
+        <div class="table-pos-pagination dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul uib-pagination
+                total-items="controller.paging.pageCount"
+                ng-model="controller.paging.currentPageIndex"
+                max-size="controller.paging.pageSize"
+                num-pages="numPages"
+                class="pagination"
+                boundary-links="true"
+                rotate="false"
+                ng-change="controller.getProductList()"></ul>
+        </div>
+    </div>
+
+</div>

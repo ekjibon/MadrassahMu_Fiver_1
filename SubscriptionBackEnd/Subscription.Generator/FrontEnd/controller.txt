@@ -1,0 +1,88 @@
+using CoreWeb.Business.Common;
+using CoreWeb.Ui.Common.Mvc;
+using TheHub.Business.Common;
+using TheHub.Business.ReturnType;
+using TheHub.Ui.Mvc.Controllers;
+using System;
+using System.Web.Mvc;
+using TheHub.Business.Enums;
+
+namespace TheHub.Ui.Mvc.Areas.##{{baseArea}}##.Controllers
+{
+    public partial class ##{{entityName}}##Controller : BaseController
+    {
+        // GET: ##{{entityName}}##/##{{entityName}}##
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult LoadList(SortingPagingInfo sortingPagingInfo)
+        {
+            BaseReturnType<BaseListReturnType<TheHub.Business.##{{entityName}}##>> response = new BaseReturnType<BaseListReturnType<TheHub.Business.##{{entityName}}##>>();
+            try
+            {
+
+                BusinessResponse<BaseListReturnType<TheHub.Business.##{{entityName}}##>> businessResponse = serviceFactory.##{{entityName}}##Service.GetAll##{{pluralEntityName}}##ByPage(sortingPagingInfo);
+
+                if (businessResponse.HasException())
+                {
+                    response.Status = RequestStatusEnum.FAILURE;
+                    response.ErrorMessage = businessResponse.Exception.Message;
+                    return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+                }
+                response.Status = RequestStatusEnum.SUCCESS;
+                response.Result = businessResponse.Result;
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(500);
+            }
+            return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Add##{{entityName}}##(Business.##{{entityName}}## ##{{camelCaseEntity}}##)
+        {
+            BaseReturnType<Business.##{{entityName}}##> response = new BaseReturnType<Business.##{{entityName}}##>();
+            try
+            {
+                var businessResponse = serviceFactory.##{{entityName}}##Service.Save##{{entityName}}##(##{{camelCaseEntity}}##);
+                   if (businessResponse.HasException())
+                {
+                    response.Status = RequestStatusEnum.FAILURE;
+                    response.ErrorMessage = businessResponse.Exception.Message;
+                    return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+                }
+                response.Status = RequestStatusEnum.SUCCESS;
+                response.Result = ##{{camelCaseEntity}}##;
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(500);
+            }
+            return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete##{{entityName}}##(Business.##{{entityName}}## ##{{camelCaseEntity}}##)
+        {
+            BaseReturnType<Business.##{{entityName}}##> response = new BaseReturnType<Business.##{{entityName}}##>();
+            try
+            {
+                var businessResponse = serviceFactory.##{{entityName}}##Service.Delete##{{entityName}}##(##{{camelCaseEntity}}##);
+                     if (businessResponse.HasException())
+                {
+                    response.Status = RequestStatusEnum.FAILURE;
+                    response.ErrorMessage = businessResponse.Exception.Message;
+                    return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+                }
+                response.Status = RequestStatusEnum.SUCCESS;
+                response.Result = ##{{camelCaseEntity}}##;
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(500);
+            }
+            return new JsonCamelCaseResult(response, JsonRequestBehavior.AllowGet);
+        }
+    }
+}

@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Subscription.Business.Enums
+{
+    public enum ParameterEnum
+    {
+        USER_REGISTRATION_MAIL_SUBJECT = 10001,
+        USER_REGISTRATION_MAIL_TEMPLATE = 10002,
+        USER_FORGOT_PASSWORD_MAIL_SUBJECT = 10003,
+        USER_FORGOT_PASSWORD_MAIL_TEMPLATE = 10004,
+        IDENTITY_BUILT = 5,
+        //TOTAL_VIEWERS = 6,
+        QUESTION_ANSWERED = 7,
+        //DOCUMENT_PHYSICAL_PATH = 8,
+        //DOCUMENT_SERVER_URL = 9,
+        REPORT_DLL_PATH = 10,
+        MEF_DLL_PATH = 11,
+        MAX_FILE_SIZE_FOR_FLIPBOOK = 12,
+        FLIPBOOK_DOCUMENT_PATH = 13,
+        MAX_PAGE_COUNT_FOR_FLIPBOOK = 14,
+        FLIPBOOK_DOCUMENT_SERVER_URL = 15,
+        //MAX_DOC_UPLOAD_FILE_SIZE = 10013,
+        PROTOCOL = 10014,
+        PROFILE_PICTURE = 10015,
+        COMPANY_PICTURE = 10016,
+        PROFILE_COVER_PICTURE = 10017,
+        COMPANY_COVER_PICTURE = 10018,
+        RASTERIZER_APPLICATION_PATH = 10019,
+        PDF_DOWNLOAD_URL = 10020,
+        PDF_VIEW_URL = 10021,
+
+        TRANSACTION_RECEIPT_BODY= 1,
+        TRANSACTION_RECEIPT_SUBJECT= 2,
+        TRANSACTION_RECEIPT_COPY = 3,
+        TRANSACTION_RECEIPT_NAME = 4,
+        MAX_DOC_UPLOAD_FILE_SIZE = 5,
+        DOCUMENT_PHYSICAL_PATH = 6,
+        DOCUMENT_SERVER_URL = 7,
+    }
+}
